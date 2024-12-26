@@ -1,4 +1,3 @@
-import { UnderlineIcon } from "@heroicons/react/16/solid";
 import { Carousel, IconButton, Typography } from "@material-tailwind/react";
 
 export default function AboutUsFacilities() {
