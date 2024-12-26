@@ -1,3 +1,4 @@
+import { UnderlineIcon } from "@heroicons/react/16/solid";
 import { Carousel, IconButton, Typography } from "@material-tailwind/react";
 
 export default function AboutUsFacilities() {
@@ -16,13 +17,13 @@ export default function AboutUsFacilities() {
     {
       title: "Therapeutic Massage Rooms",
       description: "Specialized massage rooms to aid in lymphedema treatment.",
-      image: "./assets/EKG_neon.jpg",
+      image: "./assets/family.jpg",
     },
-    {
-      title: "Wound Care Stations",
-      description: "Dedicated spaces for effective wound management.",
-      image: "./assets/EKG_neon.jpg",
-    },
+    // {
+    //   title: "Wound Care Stations",
+    //   description: "Dedicated spaces for effective wound management.",
+    //   image: "./assets/EKG_neon.jpg",
+    // },
   ];
 
   return (
@@ -92,15 +93,19 @@ export default function AboutUsFacilities() {
               {facilities.map((facility, index) => (
                 <div
                   key={index}
-                  className="flex h-[480px] flex-row items-center justify-center rounded-md shadow-md"
+                  className="flex h-[480px] flex-row items-center justify-center"
                   style={{
-                    backgroundImage: `radial-gradient(circle, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0.9) 100%), url('${facility.image}')`,
+                    backgroundImage: `
+                      radial-gradient(circle, rgba(36, 36, 36, 0) 50%, rgba(36, 36, 36, 1) 95%), 
+                      radial-gradient(ellipse at center, rgba(36, 36, 36, 0) 20%, rgba(36, 36, 36, 1) 100%, rgba(36, 36, 36, 0.9) 100%),
+                      url('${facility.image}')
+                    `,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                     backgroundRepeat: "no-repeat",
                   }}
                 >
-                  <div className={`p-4`}>
+                  <div className={`translate-y-36 p-4`}>
                     {/* @ts-ignore */}
                     <Typography variant="h3" className="text-gray-100">
                       {facility.title}
@@ -119,3 +124,8 @@ export default function AboutUsFacilities() {
     </>
   );
 }
+
+// linear-gradient(to top, rgba(36, 36, 36, 1) 1%, rgba(36, 36, 36, 0) 3%),
+//                       linear-gradient(to bottom, rgba(36, 36, 36, 1) 1%, rgba(36, 36, 36, 0) 3%),
+//                       linear-gradient(to right, rgba(36, 36, 36, 1) 1%, rgba(36, 36, 36, 0) 3%),
+//                       linear-gradient(to left, rgba(36, 36, 36, 1) 1%, rgba(36, 36, 36, 0) 3%),
