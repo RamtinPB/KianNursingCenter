@@ -1,0 +1,13 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ],
+  "compilerOptions": {
+    "strict": false, // This loosens strict type checks
+    "skipLibCheck": true, // Skips type-checking node_modules
+    "esModuleInterop": true,
+    "jsx": "react-jsx"
+  }
+}
