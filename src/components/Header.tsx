@@ -50,8 +50,10 @@ export default function Header() {
                 <li>
                   {/* @ts-ignore */}
                   <Typography
-                    as={"a"}
-                    href="/"
+                    onClick={() => {
+                      navigate("/");
+                      window.scrollTo(0, 0);
+                    }}
                     variant="small"
                     color="blue-gray"
                     className="p-1 font-medium hover:text-green-600"
@@ -62,8 +64,10 @@ export default function Header() {
                 <li>
                   {/* @ts-ignore */}
                   <Typography
-                    as={"a"}
-                    href="/AboutUs"
+                    onClick={() => {
+                      navigate("/AboutUs");
+                      window.scrollTo(0, 0);
+                    }}
                     variant="small"
                     color="blue-gray"
                     className="p-1 font-medium hover:text-green-600"
@@ -74,8 +78,10 @@ export default function Header() {
                 <li>
                   {/* @ts-ignore */}
                   <Typography
-                    as={"a"}
-                    href="/Services"
+                    onClick={() => {
+                      navigate("/Services");
+                      window.scrollTo(0, 0);
+                    }}
                     variant="small"
                     color="blue-gray"
                     className="p-1 font-medium hover:text-green-600"
@@ -86,8 +92,10 @@ export default function Header() {
                 <li>
                   {/* @ts-ignore */}
                   <Typography
-                    as={"a"}
-                    href="/ContactUs"
+                    onClick={() => {
+                      navigate("/ContactUs");
+                      window.scrollTo(0, 0);
+                    }}
                     variant="small"
                     color="blue-gray"
                     className="p-1 font-medium hover:text-green-600"
