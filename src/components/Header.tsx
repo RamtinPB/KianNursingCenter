@@ -56,7 +56,7 @@ export default function Header() {
                     }}
                     variant="small"
                     color="blue-gray"
-                    className="p-1 font-medium hover:text-green-600"
+                    className="cursor-pointer p-1 font-medium hover:text-green-600"
                   >
                     Home
                   </Typography>
@@ -70,7 +70,7 @@ export default function Header() {
                     }}
                     variant="small"
                     color="blue-gray"
-                    className="p-1 font-medium hover:text-green-600"
+                    className="cursor-pointer p-1 font-medium hover:text-green-600"
                   >
                     About Us
                   </Typography>
@@ -84,7 +84,7 @@ export default function Header() {
                     }}
                     variant="small"
                     color="blue-gray"
-                    className="p-1 font-medium hover:text-green-600"
+                    className="cursor-pointer p-1 font-medium hover:text-green-600"
                   >
                     Services
                   </Typography>
@@ -98,7 +98,7 @@ export default function Header() {
                     }}
                     variant="small"
                     color="blue-gray"
-                    className="p-1 font-medium hover:text-green-600"
+                    className="cursor-pointer p-1 font-medium hover:text-green-600"
                   >
                     Contact Us
                   </Typography>
