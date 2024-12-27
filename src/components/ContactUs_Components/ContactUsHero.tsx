@@ -23,7 +23,7 @@ export default function ContactUsHero() {
           </div>
         </div>
 
-        <div className="container relative translate-y-16 rounded-xl bg-gray-100 shadow-lg backdrop-blur-3xl backdrop-saturate-200">
+        <div className="container relative translate-y-[70px] rounded-xl bg-gray-100 shadow-lg backdrop-blur-3xl backdrop-saturate-200">
           <div className="grid grid-cols-4 gap-8 text-center">
             <div className="flex flex-col items-center justify-center gap-2 p-6">
               {/* @ts-ignore */}
@@ -128,14 +128,6 @@ export default function ContactUsHero() {
           </div>
         </div>
       </div>
-      <div className="h-64 w-full bg-gray-100"></div>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-        <path
-          fill="#f5f5f5"
-          fill-opacity="1"
-          d="M0,96L48,112C96,128,192,160,288,170.7C384,181,480,171,576,149.3C672,128,768,96,864,96C960,96,1056,128,1152,133.3C1248,139,1344,117,1392,106.7L1440,96L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
-        ></path>
-      </svg>
     </>
   );
 }
