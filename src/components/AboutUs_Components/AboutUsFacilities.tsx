@@ -6,17 +6,19 @@ export default function AboutUsFacilities() {
       title: "Advanced Treatment Rooms",
       description:
         "Equipped with the latest medical technology to provide the best care.",
-      image: "./assets/EKG_neon.jpg",
+      image: "./facilities/facility-blue.jpg",
     },
     {
-      title: "Comfortable Patient Suites",
-      description: "Designed for a relaxing recovery experience.",
-      image: "./assets/EKG_light_green.jpg",
+      title: "Comfortable Waiting Rooms",
+      description:
+        "Relax in our welcoming waiting areas designed for your comfort.",
+      image: "./facilities/waiting_room.jpg",
     },
     {
-      title: "Therapeutic Massage Rooms",
-      description: "Specialized massage rooms to aid in lymphedema treatment.",
-      image: "./assets/family.jpg",
+      title: "Private Consultation Rooms",
+      description:
+        "Receive personalized care in our private consultation rooms.",
+      image: "./facilities/doctors_office.jpg",
     },
     // {
     //   title: "Wound Care Stations",
@@ -45,7 +47,7 @@ export default function AboutUsFacilities() {
                   color="white"
                   size="lg"
                   onClick={handlePrev}
-                  className="!absolute left-4 top-2/4 -translate-y-2/4"
+                  className="!absolute left-4 top-2/4 -translate-y-2/4 rounded-full"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -70,7 +72,7 @@ export default function AboutUsFacilities() {
                   color="white"
                   size="lg"
                   onClick={handleNext}
-                  className="!absolute !right-4 top-2/4 -translate-y-2/4"
+                  className="!absolute !right-4 top-2/4 -translate-y-2/4 rounded-full"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -106,11 +108,17 @@ export default function AboutUsFacilities() {
                 >
                   <div className={`translate-y-36 p-4`}>
                     {/* @ts-ignore */}
-                    <Typography variant="h3" className="text-gray-100">
+                    <Typography
+                      variant="h3"
+                      className="!text-shadow-xl text-white"
+                    >
                       {facility.title}
                     </Typography>
                     {/* @ts-ignore */}
-                    <Typography variant="paragraph" className="text-gray-400">
+                    <Typography
+                      variant="paragraph"
+                      className="!text-shadow-xl text-gray-100"
+                    >
                       {facility.description}
                     </Typography>
                   </div>
