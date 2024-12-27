@@ -102,7 +102,7 @@ const WoundSchedule = [
 export default function ContactUsOperationHours() {
   return (
     <>
-      <section className="bg-gray-100 pt-60">
+      <section className="bg-gray-100 pt-52">
         <div className="container mx-auto px-5">
           <div className="flex- mb-10 flex-col items-center justify-center text-center">
             <svg
