@@ -19,8 +19,12 @@ export default function Header() {
 
   return (
     <>
+      <div className="absolute inset-0 top-0 h-[56px] w-full bg-white"></div>
       {/* @ts-ignore */}
-      <Navbar className="sticky top-0 z-50 mx-auto h-max max-w-full rounded-none border-none bg-gradient-to-b from-gray-100 to-transparent px-4 py-2 shadow-lg lg:px-8 lg:py-4">
+      <Navbar
+        blurred={true}
+        className="sticky top-0 z-[999] mx-auto h-max max-w-full rounded-none border-none px-4 py-2 shadow-lg lg:px-8 lg:py-4"
+      >
         <div className="container mx-auto flex flex-col items-center justify-between">
           <div className="container flex items-center justify-between gap-5">
             <div className="flex items-center justify-center gap-1">
