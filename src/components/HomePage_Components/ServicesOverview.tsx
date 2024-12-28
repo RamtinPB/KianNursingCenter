@@ -16,11 +16,11 @@ function ServiceCard({ img, title, description }: ServiceCardProps) {
       <CardBody className="flex flex-col items-center justify-center gap-2 text-pretty p-4 md:p-5">
         <img src={img} alt={title} className="h-56 lg:h-72" />
         {/* @ts-ignore */}
-        <Typography variant="h5" className="text-lg font-semibold md:text-xl">
+        <Typography variant="h5" className="text-xl font-semibold">
           {title}
         </Typography>
         {/* @ts-ignore */}
-        <Typography className="mb-4 !text-pretty text-sm font-normal text-gray-600 md:mb-6 md:mt-4 md:text-base">
+        <Typography className="mb-4 !text-pretty text-base font-normal text-gray-600 md:mb-6 md:mt-4">
           {description}
         </Typography>
         {/* @ts-ignore */}

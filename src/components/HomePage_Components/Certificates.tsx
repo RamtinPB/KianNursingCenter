@@ -30,14 +30,14 @@ function CertificatesCard({
           {/* @ts-ignore */}
           <Typography
             color="blue-gray"
-            className="mb-4 text-2xl font-bold lg:mb-20"
+            className="mb-8 text-xl font-bold md:text-2xl lg:mb-20"
             variant="h3"
           >
             {title}
           </Typography>
         </CardHeader>
         {/* @ts-ignore */}
-        <CardBody className="flex h-full flex-wrap items-center justify-between gap-x-6 px-4 py-0">
+        <CardBody className="flex h-full flex-wrap items-center justify-between px-4 py-0">
           {/* @ts-ignore */}
           <Typography
             variant="paragraph"
@@ -47,7 +47,10 @@ function CertificatesCard({
             {description}
           </Typography>
           {/* @ts-ignore */}
-          <Typography variant="h6" className="w-full font-medium text-gray-500">
+          <Typography
+            variant="h6"
+            className="mt-2 w-full !text-pretty font-medium text-gray-500 md:mt-0"
+          >
             {organization}
           </Typography>
           {/* {img ? (
@@ -120,10 +123,14 @@ export default function Certificates() {
           d="M0,96L34.3,90.7C68.6,85,137,75,206,74.7C274.3,75,343,85,411,106.7C480,128,549,160,617,186.7C685.7,213,754,235,823,229.3C891.4,224,960,192,1029,165.3C1097.1,139,1166,117,1234,117.3C1302.9,117,1371,139,1406,149.3L1440,160L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"
         ></path>
       </svg>
-      <section className="bg-gray-100 px-8 py-10 lg:py-28">
+      <section className="bg-gray-100 px-8 py-24 lg:py-28">
         <div className="container mx-auto">
           {/* @ts-ignore */}
-          <Typography variant="h2" color="blue-gray" className="mb-10">
+          <Typography
+            variant="h2"
+            color="blue-gray"
+            className="mb-10 text-3xl lg:text-4xl"
+          >
             Our Certifications
           </Typography>
           {/* @ts-ignore */}
@@ -134,7 +141,7 @@ export default function Certificates() {
             From life-enhancing gadgets to unparalleled customer support, and
             transformative learning opportunities.
           </Typography> */}
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+          <div className="grid grid-cols-1 gap-12 md:gap-8 lg:grid-cols-2">
             {certificates.map((props, key) => (
               <CertificatesCard key={key} {...props} />
             ))}
@@ -150,27 +157,30 @@ export default function Certificates() {
               {/* @ts-ignore */}
               <Typography
                 color="blue-gray"
-                className="mb-4 text-2xl font-bold lg:mb-10"
+                className="mb-2 text-xl font-bold md:text-2xl lg:mb-10"
                 variant="h3"
               >
                 Oncology Massage Certification
               </Typography>
             </CardHeader>
             {/* @ts-ignore */}
-            <CardBody className="mx-auto w-3/5 items-center py-2">
+            <CardBody className="mx-auto items-center py-2 lg:w-3/5">
               <div>
                 {/* @ts-ignore */}
                 <Typography
                   variant="paragraph"
                   color="blue-gray"
-                  className="text-pretty"
+                  className="!text-pretty"
                 >
                   A specialized certification that validates our expertise in
                   providing massages for post-chemotherapy patients, helping to
                   alleviate symptoms and improve overall well-being.
                 </Typography>
                 {/* @ts-ignore */}
-                <Typography variant="h6" className="font-medium text-gray-500">
+                <Typography
+                  variant="h6"
+                  className="mt-4 !text-pretty font-medium text-gray-500 md:mt-0"
+                >
                   Society for Oncology Massage (S4OM)
                 </Typography>
               </div>

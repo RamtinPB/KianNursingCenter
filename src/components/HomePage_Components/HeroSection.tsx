@@ -6,20 +6,20 @@ export default function HeroSection() {
   return (
     <>
       <div className="flex h-screen items-start justify-center bg-gray-100 md:items-center lg:-mt-10">
-        <div className="container px-6 pt-5 text-center md:text-start">
+        <div className="container px-6 pt-5 text-start">
           <div className="flex flex-col-reverse items-center justify-center bg-gray-100 md:flex-row">
             <div className="flex flex-1 flex-col items-center justify-center">
               <div className="mt-5 w-full md:mt-0">
                 {/* @ts-ignore */}
                 <Typography
-                  className="text-xl font-bold text-gray-900 lg:text-4xl"
+                  className="text-2xl font-bold text-gray-900 lg:text-4xl"
                   variant="h2"
                 >
                   Welcome to
                 </Typography>
                 {/* @ts-ignore */}
                 <Typography
-                  className="text-2xl font-bold text-green-500 lg:text-5xl"
+                  className="text-3xl font-bold text-green-500 lg:text-5xl"
                   variant="h1"
                 >
                   Kian Nursing Center
@@ -28,7 +28,7 @@ export default function HeroSection() {
               {/* @ts-ignore */}
               <Typography
                 variant="lead"
-                className="mt-4 !text-pretty text-sm text-gray-700 lg:text-xl"
+                className="mt-4 !text-pretty text-lg text-gray-700 lg:text-xl"
               >
                 Helping patients with lymphedema, post-chemotherapy recovery,
                 and wound care through specialized treatments to promote healing
