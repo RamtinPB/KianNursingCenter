@@ -21,18 +21,19 @@ const content = [
 export default function Pillars() {
   return (
     <>
-      <section className="py-10 lg:pb-48 lg:pt-16">
-        <div className="container mx-auto text-center">
+      <section className="pb-36 pt-20 lg:pb-48 lg:pt-16">
+        <div className="container mx-auto px-10 text-center md:px-0">
           {/* @ts-ignore */}
-          <Typography variant="h2" className="text-3xl font-bold text-gray-100">
+          <Typography variant="h3" className="font-bold text-gray-100">
             Why Choose
+            <br />
             <span className="text-green-500"> Kian Nursing Center</span>
           </Typography>
           {/* @ts-ignore */}
           <Typography variant="paragraph" className="mt-3 text-gray-300">
             Our commitment to quality care sets us apart.
           </Typography>
-          <div className="mt-10 grid grid-cols-1 gap-14 md:grid-cols-3">
+          <div className="mt-12 grid grid-cols-1 gap-14 md:mt-10 md:grid-cols-3">
             {content.map((pillar, idx) => (
               <div
                 key={idx}
@@ -79,15 +80,15 @@ export default function Pillars() {
                 )}
                 {/* @ts-ignore */}
                 <Typography
-                  variant="h3"
-                  className="text-xl font-semibold text-gray-800"
+                  variant="h5"
+                  className="font-semibold text-gray-800"
                 >
                   {pillar.title}
                 </Typography>
                 {/* @ts-ignore */}
                 <Typography
                   variant="paragraph"
-                  className="mt-2 text-pretty text-gray-600"
+                  className="mt-2 !text-pretty text-gray-700"
                 >
                   {pillar.description}
                 </Typography>

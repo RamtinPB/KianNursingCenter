@@ -58,9 +58,9 @@ export default function Header() {
 
               <div className="hidden md:block">
                 {/* @ts-ignore */}
-                <List className="flex items-center gap-6">
+                <ul className="flex flex-row items-center gap-6">
                   {/* @ts-ignore */}
-                  <ListItem>
+                  <li>
                     {/* @ts-ignore */}
                     <Typography
                       onClick={() => {
@@ -73,9 +73,9 @@ export default function Header() {
                     >
                       Home
                     </Typography>
-                  </ListItem>
+                  </li>
                   {/* @ts-ignore */}
-                  <ListItem>
+                  <li>
                     {/* @ts-ignore */}
                     <Typography
                       onClick={() => {
@@ -88,9 +88,9 @@ export default function Header() {
                     >
                       About Us
                     </Typography>
-                  </ListItem>
+                  </li>
                   {/* @ts-ignore */}
-                  <ListItem>
+                  <li>
                     {/* @ts-ignore */}
                     <Typography
                       onClick={() => {
@@ -103,9 +103,9 @@ export default function Header() {
                     >
                       Services
                     </Typography>
-                  </ListItem>
+                  </li>
                   {/* @ts-ignore */}
-                  <ListItem>
+                  <li>
                     {/* @ts-ignore */}
                     <Typography
                       onClick={() => {
@@ -118,8 +118,8 @@ export default function Header() {
                     >
                       Contact Us
                     </Typography>
-                  </ListItem>
-                </List>
+                  </li>
+                </ul>
               </div>
             </div>
 

@@ -62,8 +62,8 @@ export default function ServicesOverview() {
         <div className="container mx-auto px-6">
           {/* @ts-ignore */}
           <Typography
-            variant="h2"
-            className="mb-11 text-center text-3xl font-bold text-white"
+            variant="h3"
+            className="mb-10 text-center font-bold text-white"
           >
             Our Services
           </Typography>

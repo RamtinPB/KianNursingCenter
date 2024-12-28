@@ -126,11 +126,7 @@ export default function Certificates() {
       <section className="bg-gray-100 px-8 py-24 lg:py-28">
         <div className="container mx-auto">
           {/* @ts-ignore */}
-          <Typography
-            variant="h2"
-            color="blue-gray"
-            className="mb-10 text-3xl lg:text-4xl"
-          >
+          <Typography variant="h3" color="blue-gray" className="mb-10">
             Our Certifications
           </Typography>
           {/* @ts-ignore */}

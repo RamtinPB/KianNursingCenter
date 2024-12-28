@@ -34,7 +34,7 @@ function FaqAccordion({
       {/* @ts-ignore */}
       <AccordionHeader onClick={onToggle} className="rounded-xl">
         {/* @ts-ignore */}
-        <Typography variant="h6" className="text-pretty text-gray-100">
+        <Typography variant="h6" className="!text-justify text-gray-100">
           {question}
         </Typography>
       </AccordionHeader>
@@ -42,7 +42,7 @@ function FaqAccordion({
         {/* @ts-ignore */}
         <Typography
           variant="paragraph"
-          className="px-5 text-justify text-gray-600"
+          className="px-6 !text-justify text-gray-600 md:px-5"
         >
           {answer}
         </Typography>
@@ -110,13 +110,10 @@ export default function FAQ() {
           d="M0,96L48,117.3C96,139,192,181,288,165.3C384,149,480,75,576,64C672,53,768,107,864,138.7C960,171,1056,181,1152,170.7C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
         ></path>
       </svg>
-      <section className="bg-gray-100 py-16">
+      <section className="bg-gray-100 px-3 py-16 md:px-0">
         <div className="container mx-auto">
           {/* @ts-ignore */}
-          <Typography
-            variant="h2"
-            className="text-center text-3xl font-bold text-gray-800"
-          >
+          <Typography variant="h3" className="text-center text-gray-800">
             Frequently Asked Questions
           </Typography>
           <div className="mx-10 mt-8 flex flex-col items-center gap-10">
@@ -131,11 +128,14 @@ export default function FAQ() {
           </div>
           <div className="my-10 flex flex-col items-center">
             {/* @ts-ignore */}
-            <Typography variant="h3" className="text-black">
+            <Typography variant="h4" className="text-black">
               Need More Help?
             </Typography>
             {/* @ts-ignore */}
-            <Typography variant="lead" className="text-gray-500">
+            <Typography
+              variant="paragraph"
+              className="font-medium text-gray-500"
+            >
               Contact us about your specific needs.
             </Typography>
             {/* @ts-ignore */}
