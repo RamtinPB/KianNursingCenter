@@ -25,7 +25,7 @@ export default function Header() {
       {/* @ts-ignore */}
       <Navbar className="sticky top-0 z-50 mx-auto h-max max-w-full rounded-none border-none bg-gradient-to-b from-gray-100 to-transparent px-4 py-2 shadow-lg lg:px-8 lg:py-4">
         <div className="container mx-auto flex flex-col items-center justify-between">
-          <div className="gap- container flex items-center justify-between gap-5">
+          <div className="container flex items-center justify-between gap-5">
             <div className="flex items-center justify-center gap-1">
               <div className="flex gap-2">
                 {/* <img src="" alt="KNC Logo" className="h-11 w-11" /> */}
@@ -138,7 +138,7 @@ export default function Header() {
 
             {/* @ts-ignore */}
             <IconButton
-              className="bg-inherit shadow-none md:hidden"
+              className="rounded-full bg-inherit shadow-none md:hidden"
               onClick={() => clickMenuBar()}
             >
               <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
@@ -180,22 +180,22 @@ export default function Header() {
               </span>
             </IconButton>
           </div>
+
           <div
-            className={`container w-full overflow-hidden transition-[max-height] duration-500 ease-in-out md:hidden ${showMenu ? "max-h-[1000px]" : "max-h-0"}`}
+            className={`w-full overflow-hidden transition-[max-height] duration-500 ease-in-out md:hidden ${showMenu ? "max-h-[1000px]" : "max-h-0"}`}
           >
             {/* @ts-ignore */}
             <List className="flex flex-col items-start">
               {/* @ts-ignore */}
               <ListItem
-                selected={selected === 1}
-                onClick={() => setSelectedItem(1)}
+                className="py-2"
+                onClick={() => {
+                  navigate("/");
+                  window.scrollTo(0, 0);
+                }}
               >
                 {/* @ts-ignore */}
                 <Typography
-                  onClick={() => {
-                    navigate("/");
-                    window.scrollTo(0, 0);
-                  }}
                   variant="small"
                   color="blue-gray"
                   className="cursor-pointer p-1 font-medium hover:text-green-600"
@@ -204,13 +204,15 @@ export default function Header() {
                 </Typography>
               </ListItem>
               {/* @ts-ignore */}
-              <ListItem>
+              <ListItem
+                className="py-2"
+                onClick={() => {
+                  navigate("/AboutUs");
+                  window.scrollTo(0, 0);
+                }}
+              >
                 {/* @ts-ignore */}
                 <Typography
-                  onClick={() => {
-                    navigate("/AboutUs");
-                    window.scrollTo(0, 0);
-                  }}
                   variant="small"
                   color="blue-gray"
                   className="cursor-pointer p-1 font-medium hover:text-green-600"
@@ -219,13 +221,15 @@ export default function Header() {
                 </Typography>
               </ListItem>
               {/* @ts-ignore */}
-              <ListItem>
+              <ListItem
+                className="py-2"
+                onClick={() => {
+                  navigate("/Services");
+                  window.scrollTo(0, 0);
+                }}
+              >
                 {/* @ts-ignore */}
                 <Typography
-                  onClick={() => {
-                    navigate("/Services");
-                    window.scrollTo(0, 0);
-                  }}
                   variant="small"
                   color="blue-gray"
                   className="cursor-pointer p-1 font-medium hover:text-green-600"
@@ -234,13 +238,15 @@ export default function Header() {
                 </Typography>
               </ListItem>
               {/* @ts-ignore */}
-              <ListItem>
+              <ListItem
+                className="py-2"
+                onClick={() => {
+                  navigate("/ContactUs");
+                  window.scrollTo(0, 0);
+                }}
+              >
                 {/* @ts-ignore */}
                 <Typography
-                  onClick={() => {
-                    navigate("/ContactUs");
-                    window.scrollTo(0, 0);
-                  }}
                   variant="small"
                   color="blue-gray"
                   className="cursor-pointer p-1 font-medium hover:text-green-600"
@@ -249,13 +255,11 @@ export default function Header() {
                 </Typography>
               </ListItem>
               {/* @ts-ignore */}
-              <ListItem>
+              <ListItem ripple={false} className="my-2 p-0">
                 {/* @ts-ignore */}
                 <Button
                   ripple={true}
-                  size="sm"
-                  color="black"
-                  className="transition-colors duration-300 hover:bg-green-600"
+                  className="w-full transition-colors duration-300 hover:bg-green-600"
                   onClick={() => {
                     navigate("/ContactUs");
                     window.scrollTo(0, 0);
