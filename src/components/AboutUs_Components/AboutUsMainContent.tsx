@@ -126,11 +126,11 @@ export default function AboutUsMainContent() {
           d="M0,96L34.3,117.3C68.6,139,137,181,206,186.7C274.3,192,343,160,411,133.3C480,107,549,85,617,64C685.7,43,754,21,823,64C891.4,107,960,213,1029,218.7C1097.1,224,1166,128,1234,106.7C1302.9,85,1371,139,1406,165.3L1440,192L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"
         ></path>
       </svg>
-      <section className="bg-gray-100 px-8 py-8 lg:pb-20 lg:pt-8">
+      <section className="bg-gray-100 px-8 py-16 lg:pb-20 lg:pt-8">
         <div className="container mx-auto">
-          <div className="mb-16 text-center lg:mb-16">
+          <div className="mb-10 text-center lg:mb-16">
             {/* @ts-ignore */}
-            <Typography variant="h2" className="text-black">
+            <Typography variant="h3" className="text-black">
               Who We Are
             </Typography>
             {/* @ts-ignore */}
@@ -142,13 +142,13 @@ export default function AboutUsMainContent() {
               improving patient well-being every step of the way.
             </Typography>
           </div>
-          <div className="flex flex-row items-center gap-16">
+          <div className="flex flex-col-reverse items-center gap-16 md:flex-row">
             <div className="flex h-full w-full flex-1">
               <div className="grid grid-cols-1 place-items-center gap-10">
                 {content.map((card, index) => (
                   <div
                     key={index}
-                    className={`flex transform items-start justify-start rounded-xl bg-black p-4 text-start shadow-md transition-all duration-300 hover:scale-105 hover:shadow-xl ${selectedIndex === index ? "scale-105" : ""}`}
+                    className={`flex max-w-full transform items-start justify-start rounded-xl bg-black p-4 text-start shadow-md transition-all duration-300 hover:scale-105 hover:shadow-xl ${selectedIndex === index ? "scale-105" : ""}`}
                     onClick={() => handleCardChange(index)}
                   >
                     <Icon index={card.index} />
@@ -184,11 +184,11 @@ export default function AboutUsMainContent() {
                   {content[selectedIndexForFade].title}
                 </Typography>
                 {content[selectedIndexForFade].description.map((desc, key) => (
-                  <div key={key}>
+                  <div key={key} className="text-start">
                     {/* @ts-ignore */}
                     <Typography
                       variant="paragraph"
-                      className="mt-4 !text-justify text-gray-100"
+                      className="mt-4 !text-pretty text-gray-100"
                     >
                       {desc}
                     </Typography>

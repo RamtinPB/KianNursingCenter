@@ -3,23 +3,21 @@ import { Typography } from "@material-tailwind/react";
 export default function AboutUsHero() {
   return (
     <>
-      <div className="relative flex h-screen items-center justify-center px-6 dark:bg-gray-900">
+      <div className="relative flex h-screen items-center justify-center px-6">
         <div className="absolute inset-0 bg-[url('/assets/EKG_Green_NoBG.png')] bg-cover bg-center bg-no-repeat blur-md" />
-        <div className="relative">
-          <div className="flex items-center px-10">
-            <div className="container flex flex-col items-center justify-center">
+        <div className="relative mx-auto">
+          <div className="flex items-center px-3 md:px-10">
+            <div className="flex flex-col items-center justify-center">
               {/* @ts-ignore */}
-              <Typography
-                className="text-4xl font-bold text-white md:text-6xl"
-                variant="h1"
-              >
+              <Typography className="text-4xl font-bold text-white md:text-6xl">
                 About
+                <br className="md:hidden" />
                 <span className="text-green-500"> Kian Nursing Center</span>
               </Typography>
               {/* @ts-ignore */}
               <Typography
-                variant="paragraph"
-                className="mt-4 text-pretty text-xl text-gray-300"
+                variant="lead"
+                className="mt-4 !text-balance text-gray-300"
               >
                 Discover our dedication to exceptional care and personalized
                 healing

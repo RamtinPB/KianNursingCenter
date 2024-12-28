@@ -29,7 +29,7 @@ export default function AboutUsFacilities() {
 
   return (
     <>
-      <section className="lg:pb-48 lg:pt-28">
+      <section className="py-20 lg:pb-48 lg:pt-28">
         <div className="container mx-auto">
           <div className="flex flex-col">
             {/* @ts-ignore */}
@@ -45,9 +45,8 @@ export default function AboutUsFacilities() {
                 <IconButton
                   variant="text"
                   color="white"
-                  size="lg"
                   onClick={handlePrev}
-                  className="!absolute left-4 top-2/4 -translate-y-2/4 rounded-full"
+                  className="!absolute left-4 top-2/4 -translate-y-2/4 rounded-full md:h-12 md:max-h-12 md:w-12 md:max-w-12"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -55,7 +54,7 @@ export default function AboutUsFacilities() {
                     viewBox="0 0 24 24"
                     strokeWidth={2}
                     stroke="currentColor"
-                    className="h-6 w-6"
+                    className="h-5 w-5 md:h-6 md:w-6"
                   >
                     <path
                       strokeLinecap="round"
@@ -70,9 +69,8 @@ export default function AboutUsFacilities() {
                 <IconButton
                   variant="text"
                   color="white"
-                  size="lg"
                   onClick={handleNext}
-                  className="!absolute !right-4 top-2/4 -translate-y-2/4 rounded-full"
+                  className="!absolute !right-4 top-2/4 -translate-y-2/4 rounded-full md:h-12 md:max-h-12 md:w-12 md:max-w-12"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -80,7 +78,7 @@ export default function AboutUsFacilities() {
                     viewBox="0 0 24 24"
                     strokeWidth={2}
                     stroke="currentColor"
-                    className="h-6 w-6"
+                    className="h-5 w-5 md:h-6 md:w-6"
                   >
                     <path
                       strokeLinecap="round"
@@ -109,15 +107,15 @@ export default function AboutUsFacilities() {
                   <div className={`translate-y-36 p-4`}>
                     {/* @ts-ignore */}
                     <Typography
-                      variant="h3"
-                      className="!text-shadow-xl text-white"
+                      variant="h4"
+                      className="text-white !text-shadow-xl"
                     >
                       {facility.title}
                     </Typography>
                     {/* @ts-ignore */}
                     <Typography
                       variant="paragraph"
-                      className="!text-shadow-xl text-gray-100"
+                      className="text-gray-50 !text-shadow-xl"
                     >
                       {facility.description}
                     </Typography>

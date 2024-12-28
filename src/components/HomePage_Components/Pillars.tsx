@@ -26,11 +26,14 @@ export default function Pillars() {
           {/* @ts-ignore */}
           <Typography variant="h3" className="font-bold text-gray-100">
             Why Choose
-            <br />
+            <br className="md:hidden" />
             <span className="text-green-500"> Kian Nursing Center</span>
           </Typography>
           {/* @ts-ignore */}
-          <Typography variant="paragraph" className="mt-3 text-gray-300">
+          <Typography
+            variant="lead"
+            className="mt-3 !text-pretty text-gray-300"
+          >
             Our commitment to quality care sets us apart.
           </Typography>
           <div className="mt-12 grid grid-cols-1 gap-14 md:mt-10 md:grid-cols-3">
