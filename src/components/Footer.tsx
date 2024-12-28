@@ -20,16 +20,13 @@ export default function Footer() {
     <>
       <footer className="relative w-full pt-10">
         <div className="container mx-auto px-8">
-          <div className="grid-justify-between grid grid-cols-1 md:grid-cols-2">
-            <div className="flex flex-col items-start gap-4">
+          <div className="grid-justify-between grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-0">
+            <div className="flex flex-col items-center gap-4 md:items-start">
               {/* @ts-ignore */}
-              <Typography
-                className="text-4xl font-bold text-green-500 dark:text-white md:text-3xl"
-                variant="h1"
-              >
+              <Typography variant="h2" className="font-bold text-green-500">
                 Kian Nursing Center
               </Typography>
-              <div className="flex gap-6 text-blue-gray-900 sm:justify-center">
+              <div className="flex justify-center gap-6 text-blue-gray-900">
                 {/* @ts-ignore */}
                 <Typography
                   as="a"
@@ -167,13 +164,14 @@ export default function Footer() {
               ))}
             </div>
           </div>
-          <div className="mt-12 flex w-full flex-col items-center justify-center border-t border-blue-gray-50 py-4 md:flex-row">
+          <div className="mb-4 mt-12 flex w-full flex-col items-center justify-center border-t border-blue-gray-50 py-4 md:mb-0 md:flex-row">
             {/* @ts-ignore */}
-            <Typography
-              variant="small"
-              className="mb-4 text-center font-normal text-blue-gray-50 md:mb-0"
-            >
-              All Rights Reserved.
+            <Typography variant="small" className="text- text-gray-600">
+              © 2024 Kian Nursing Center. All Rights Reserved.
+            </Typography>
+            {/* @ts-ignore */}
+            <Typography variant="small" className="text- text-gray-600">
+              © 2024 RAM - Digital Design Studio. All Rights Reserved.
             </Typography>
           </div>
         </div>

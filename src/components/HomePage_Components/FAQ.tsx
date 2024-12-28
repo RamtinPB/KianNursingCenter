@@ -139,7 +139,7 @@ export default function FAQ() {
               Contact us about your specific needs.
             </Typography>
             {/* @ts-ignore */}
-            <Button className="mt-7">submit a request</Button>
+            <Button className="mt-4 md:mt-7">submit a request</Button>
           </div>
         </div>
       </section>
