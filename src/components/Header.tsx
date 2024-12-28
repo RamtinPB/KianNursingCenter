@@ -6,13 +6,10 @@ import {
   List,
   ListItem,
 } from "@material-tailwind/react";
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Header() {
-  const [selected, setSelected] = useState(1);
-  const setSelectedItem = (value: SetStateAction<number>) => setSelected(value);
-
   const [showMenu, setShowMenu] = useState(false);
   function clickMenuBar() {
     setShowMenu((prev) => !prev);
@@ -198,7 +195,7 @@ export default function Header() {
                 <Typography
                   variant="small"
                   color="blue-gray"
-                  className="cursor-pointer p-1 font-medium hover:text-green-600"
+                  className="p-1 font-medium"
                 >
                   Home
                 </Typography>
@@ -215,7 +212,7 @@ export default function Header() {
                 <Typography
                   variant="small"
                   color="blue-gray"
-                  className="cursor-pointer p-1 font-medium hover:text-green-600"
+                  className="p-1 font-medium"
                 >
                   About Us
                 </Typography>
@@ -232,7 +229,7 @@ export default function Header() {
                 <Typography
                   variant="small"
                   color="blue-gray"
-                  className="cursor-pointer p-1 font-medium hover:text-green-600"
+                  className="p-1 font-medium"
                 >
                   Services
                 </Typography>
@@ -249,7 +246,7 @@ export default function Header() {
                 <Typography
                   variant="small"
                   color="blue-gray"
-                  className="cursor-pointer p-1 font-medium hover:text-green-600"
+                  className="p-1 font-medium"
                 >
                   Contact Us
                 </Typography>
@@ -259,7 +256,7 @@ export default function Header() {
                 {/* @ts-ignore */}
                 <Button
                   ripple={true}
-                  className="w-full transition-colors duration-300 hover:bg-green-600"
+                  className="w-full transition-colors duration-300 focus:bg-green-600"
                   onClick={() => {
                     navigate("/ContactUs");
                     window.scrollTo(0, 0);
