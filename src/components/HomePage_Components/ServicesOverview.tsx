@@ -11,23 +11,23 @@ function ServiceCard({ img, title, description }: ServiceCardProps) {
   const navigate = useNavigate();
   return (
     //@ts-ignore
-    <Card className="transform transition-transform duration-300 hover:scale-105">
+    <Card className="transform transition-transform duration-300 hover:scale-105 active:scale-105">
       {/* @ts-ignore */}
-      <CardBody className="flex flex-col items-center justify-center gap-2 text-pretty p-5">
-        <img src={img} alt={title} className="h-72" />
+      <CardBody className="flex flex-col items-center justify-center gap-2 text-pretty p-4 md:p-5">
+        <img src={img} alt={title} className="h-56 lg:h-72" />
         {/* @ts-ignore */}
-        <Typography variant="h5" className="font-semibold">
+        <Typography variant="h5" className="text-lg font-semibold md:text-xl">
           {title}
         </Typography>
         {/* @ts-ignore */}
-        <Typography className="mb-6 mt-4 font-normal text-gray-600">
+        <Typography className="mb-4 !text-pretty text-sm font-normal text-gray-600 md:mb-6 md:mt-4 md:text-base">
           {description}
         </Typography>
         {/* @ts-ignore */}
         <Button
           ripple={true}
           color="black"
-          className=""
+          className="px-5 py-2 font-semibold md:px-6 md:py-3 md:font-bold"
           onClick={() => {
             navigate("/Services");
             window.scrollTo(0, 0);
@@ -51,7 +51,7 @@ const content = [
     img: "./assets/cardiovascular_NoBG.png",
     title: "Wound Care Therapy",
     description:
-      "We provide specialized massage and therapy services to relieve symptoms of lymphedema, including swelling, bloating, and pain. Our experts are trained to target key points for effective symptom management.",
+      "We provide dedicated wound care and management services designed to accelerate healing and minimize discomfort. Our specialists focus on personalized treatments to address wounds effectively and ensure optimal recovery.",
   },
 ];
 
@@ -68,7 +68,7 @@ export default function ServicesOverview() {
             Our Services
           </Typography>
 
-          <div className="mx-7 grid grid-cols-1 gap-16 md:grid-cols-2">
+          <div className="mx-5 grid grid-cols-1 gap-16 md:mx-7 md:grid-cols-2">
             {content.map((prop, key) => (
               <ServiceCard key={key} {...prop} />
             ))}
