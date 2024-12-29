@@ -53,10 +53,10 @@ const WoundItems = [
 export default function Services() {
   return (
     <>
-      <div className="w-screen bg-gray-100">
+      <div className="w-screen bg-gray-100 px-8 md:px-0">
         <div className="container mx-auto">
-          <div className="grid grid-cols-1 gap-20 py-20 lg:grid-cols-2">
-            <div className="flex flex-col items-start pb-20 pt-6">
+          <div className="flex flex-col-reverse gap-20 py-20 md:flex-row">
+            <div className="flex flex-1 flex-col items-start pb-10 pt-6 lg:pb-20">
               {/* @ts-ignore */}
               <Typography variant="h4" className="font-bold text-green-700">
                 Lymphedema Treatments
@@ -73,7 +73,7 @@ export default function Services() {
                 <Item key={key} {...item} />
               ))}
             </div>
-            <div className="mx-auto grid grid-cols-2 place-items-center gap-4 py-6">
+            <div className="mx-auto grid flex-1 grid-cols-2 place-items-center gap-4 py-6">
               <div className="">
                 <img
                   src="./assets/family.jpg"
