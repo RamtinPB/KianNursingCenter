@@ -164,14 +164,14 @@ export default function Footer() {
               ))}
             </div>
           </div>
-          <div className="mb-4 mt-12 flex w-full flex-col items-center justify-center border-t border-blue-gray-50 py-4 md:mb-0 md:flex-row">
+          <div className="mb-4 mt-12 flex w-full flex-col items-center justify-center border-t border-blue-gray-50 py-4 md:mb-0">
             {/* @ts-ignore */}
             <Typography variant="small" className="text- text-gray-600">
               © 2024 Kian Nursing Center. All Rights Reserved.
             </Typography>
             {/* @ts-ignore */}
             <Typography variant="small" className="text- text-gray-600">
-              © 2024 RAM - Digital Design Studio. All Rights Reserved.
+              © 2024 RAM - Digital Design and Development.
             </Typography>
           </div>
         </div>

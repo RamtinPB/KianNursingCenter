@@ -3,10 +3,10 @@ import { IconButton, Typography } from "@material-tailwind/react";
 export default function ContactUsHero() {
   return (
     <>
-      <div className="relative flex flex-col items-center justify-center dark:bg-gray-900">
-        <div className="flex w-[1100px] flex-col items-center justify-center">
+      <div className="relative flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center justify-center">
           <div className="absolute inset-0 bg-[url('/assets/Black_Desk1_NoBG.png')] bg-cover bg-top bg-no-repeat blur-md" />
-          <div className="relative mb-64 mt-72">
+          <div className="relative mb-56 mt-64 md:mb-64 md:mt-72">
             <div className="flex items-center px-10">
               <div className="flex flex-col items-center justify-center">
                 {/* @ts-ignore */}
@@ -20,15 +20,15 @@ export default function ContactUsHero() {
                 {/* @ts-ignore */}
                 <Typography
                   variant="lead"
-                  className="mt-3 text-gray-400 text-shadow-xl"
+                  className="mt-3 !text-balance text-gray-400 text-shadow-xl md:!text-pretty"
                 >
                   Use the methods below to reach out to us.
                 </Typography>
               </div>
             </div>
           </div>
-          <div className="container relative z-10 rounded-xl bg-gray-100 shadow-lg backdrop-blur-3xl backdrop-saturate-200 transition-shadow duration-300 hover:shadow-2xl">
-            <div className="grid grid-cols-4 gap-8 text-center">
+          <div className="relative z-10 w-9/12 rounded-xl bg-gray-100 shadow-xl backdrop-blur-3xl backdrop-saturate-200 transition-shadow duration-300 md:container md:w-auto md:shadow-lg md:hover:shadow-2xl">
+            <div className="grid grid-cols-1 gap-3 text-center md:grid-cols-4 lg:gap-24">
               <div className="flex flex-col items-center justify-center gap-2 p-6">
                 {/* @ts-ignore */}
                 <IconButton className="hover:shadow-xl">
@@ -51,7 +51,7 @@ export default function ContactUsHero() {
                 </Typography>
                 {/* @ts-ignore */}
                 <Typography
-                  variant="small"
+                  variant="paragraph"
                   className="font-medium text-gray-700"
                 >
                   vesla 12, khiab ek
@@ -77,7 +77,7 @@ export default function ContactUsHero() {
                 </Typography>
                 {/* @ts-ignore */}
                 <Typography
-                  variant="small"
+                  variant="paragraph"
                   className="font-medium text-gray-700"
                 >
                   Example@gmail.com
@@ -106,7 +106,7 @@ export default function ContactUsHero() {
                 </Typography>
                 {/* @ts-ignore */}
                 <Typography
-                  variant="small"
+                  variant="paragraph"
                   className="font-medium text-gray-700"
                 >
                   061 65789312
@@ -135,7 +135,7 @@ export default function ContactUsHero() {
                 </Typography>
                 {/* @ts-ignore */}
                 <Typography
-                  variant="small"
+                  variant="paragraph"
                   className="font-medium text-gray-700"
                 >
                   Ramtin Panahi Bazaz
@@ -146,8 +146,8 @@ export default function ContactUsHero() {
         </div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 1440 300"
-          className="-mt-[240px]"
+          viewBox="0 0 1440 200"
+          className="-mt-[380px] lg:-mt-[240px]"
         >
           <path
             fill="#f5f5f5"

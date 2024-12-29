@@ -13,12 +13,15 @@ function RenderCards({ schedule }: RenderCardsProps) {
   return (
     <>
       {/* @ts-ignore */}
-      <Card className="h-full w-full px-10 pb-4">
+      <Card className="h-full w-full px-4 pb-1 md:px-10 md:pb-4">
         <table className="w-full min-w-max table-auto text-left">
           <thead>
             <tr>
               {TABLE_HEAD.map((head) => (
-                <th key={head} className="border-b border-gray-300 pb-4 pt-10">
+                <th
+                  key={head}
+                  className="border-b border-gray-300 pb-4 pt-6 md:pt-10"
+                >
                   {/* @ts-ignore */}
                   <Typography
                     variant="small"
@@ -102,9 +105,9 @@ const WoundSchedule = [
 export default function ContactUsOperationHours() {
   return (
     <>
-      <section className="bg-gray-100 pt-52">
-        <div className="container mx-auto px-5">
-          <div className="flex- mb-10 flex-col items-center justify-center text-center">
+      <section className="bg-gray-100 pb-28 pt-[450px] md:pb-0 lg:pt-52">
+        <div className="container mx-auto px-7">
+          <div className="mb-10 flex flex-col items-center justify-center text-center">
             {/* <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -123,13 +126,16 @@ export default function ContactUsOperationHours() {
             </Typography>
 
             {/* @ts-ignore */}
-            <Typography variant="paragraph" className="text-gray-700">
+            <Typography
+              variant="paragraph"
+              className="!text-pretty text-gray-700"
+            >
               Find the detailed working hours of our specialized staff below to
               plan your visit accordingly
             </Typography>
           </div>
-          <div className="mb-6 flex flex-row items-center justify-between gap-16">
-            <div className="flex h-[440px] flex-1 flex-col rounded-xl bg-gray-900 p-10 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+          <div className="mb-6 flex flex-col items-center justify-between gap-16 md:flex-row">
+            <div className="flex h-[440px] flex-1 flex-col rounded-xl bg-gray-900 p-6 shadow-lg transition-all duration-300 hover:shadow-2xl md:p-10 md:hover:scale-105">
               {/* @ts-ignore */}
               <Typography variant="h4" className="mb-2 text-gray-200">
                 Lymphedema Care Hours
@@ -137,14 +143,14 @@ export default function ContactUsOperationHours() {
               {/* @ts-ignore */}
               <Typography
                 variant="paragraph"
-                className="mb-4 text-pretty text-gray-400"
+                className="mb-4 !text-pretty text-gray-400"
               >
                 Our specialists are available to assist you with targeted
                 therapies and care during the following hours
               </Typography>
               <RenderCards schedule={LymphedemaSchedule} />
             </div>
-            <div className="flex h-[440px] flex-1 flex-col rounded-xl bg-gray-900 p-10 shadow-md transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+            <div className="flex h-[440px] flex-1 flex-col rounded-xl bg-gray-900 p-6 shadow-lg transition-all duration-300 hover:shadow-2xl md:p-10 md:hover:scale-105">
               {/* @ts-ignore */}
               <Typography variant="h4" className="mb-2 text-gray-200">
                 Wound Care Hours
@@ -152,7 +158,7 @@ export default function ContactUsOperationHours() {
               {/* @ts-ignore */}
               <Typography
                 variant="paragraph"
-                className="mb-4 text-pretty text-gray-400"
+                className="mb-4 !text-pretty text-gray-400"
               >
                 Our team ensures expert care and attention for wound management
                 during the hours below
@@ -161,7 +167,10 @@ export default function ContactUsOperationHours() {
             </div>
           </div>
           {/* @ts-ignore */}
-          <Typography variant="lead" className="text-gray-800">
+          <Typography
+            variant="paragraph"
+            className="!text-balance text-gray-800"
+          >
             *We remain open on public holidays, except for major national
             holidays
           </Typography>
