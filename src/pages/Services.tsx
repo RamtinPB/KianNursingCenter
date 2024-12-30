@@ -9,6 +9,7 @@ export default function Services() {
   const [selectedCard, setSelectedCard] = useState<string | null>(
     "LymphedemaContent",
   );
+  const [isFadingOut, setIsFadingOut] = useState(false);
 
   // References for LymphedemaContent sections
   const sectionRefs = {
@@ -26,6 +27,19 @@ export default function Services() {
     }
   };
 
+  const handleCardChange = (card: string) => {
+    if (card === selectedCard) return; // Avoid redundant clicks
+
+    // Trigger fade-out animation
+    setIsFadingOut(true);
+
+    // After animation duration, update content
+    setTimeout(() => {
+      setSelectedCard(card);
+      setIsFadingOut(false); // Trigger fade-in
+    }, 500); // Match this duration with your CSS transition
+  };
+
   return (
     <>
       <div className="bg-gray-100 px-0">
@@ -38,20 +52,20 @@ export default function Services() {
           </div>
           <div className="col-span-12 my-8 flex flex-col lg:col-span-6 lg:border-l-2 lg:border-r-2">
             <div className="mx-5 mb-10 lg:hidden">
-              <Tabs id="custom-animation" value="selectedCard">
+              <Tabs id="custom-animation" value={selectedCard}>
                 {/* @ts-ignore */}
                 <TabsHeader>
                   {/* @ts-ignore */}
                   <Tab
                     value={"LymphedemaContent"}
-                    onClick={() => setSelectedCard("LymphedemaContent")}
+                    onClick={() => handleCardChange("LymphedemaContent")}
                   >
                     Lymphedema
                   </Tab>
                   {/* @ts-ignore */}
                   <Tab
                     value={"WoundContent"}
-                    onClick={() => setSelectedCard("WoundContent")}
+                    onClick={() => handleCardChange("WoundContent")}
                   >
                     Wound Care
                   </Tab>
@@ -59,7 +73,11 @@ export default function Services() {
               </Tabs>
             </div>
             <div className="px-8">
-              <div className="container mx-auto">
+              <div
+                className={`container mx-auto transition-opacity duration-500 ease-in-out ${
+                  isFadingOut ? "opacity-0" : "opacity-100"
+                }`}
+              >
                 {selectedCard === "LymphedemaContent" && (
                   <LymphedemaContent sectionRefs={sectionRefs} />
                 )}
@@ -72,7 +90,7 @@ export default function Services() {
           <div className="bg-gray col-span-3 hidden flex-col items-center justify-start gap-6 px-6 py-8 lg:flex">
             <ServicesSectionCard
               selectedCard={selectedCard}
-              setSelectedCard={setSelectedCard}
+              setSelectedCard={handleCardChange}
             />
           </div>
         </div>

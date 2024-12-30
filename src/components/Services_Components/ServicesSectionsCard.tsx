@@ -2,7 +2,7 @@ import { Typography, CardBody, Card } from "@material-tailwind/react";
 
 interface ServicesSectionCardProps {
   selectedCard: string | null; // Allow string or null
-  setSelectedCard: (card: string | null) => void; // Function accepts string or null
+  setSelectedCard: (card: string) => void; // Function accepts string or null
 }
 
 export default function ServicesSectionCard({
