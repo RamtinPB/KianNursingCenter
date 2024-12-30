@@ -51,7 +51,7 @@ export default function Header() {
                 {/* @ts-ignore */}
                 <Typography
                   variant="h4"
-                  className="text-md mx-4 !text-nowrap py-1.5 font-body text-green-600 md:text-2xl"
+                  className="mx-4 !text-nowrap py-1.5 font-body text-[17px] text-green-600 md:text-2xl"
                 >
                   Kian Nursing Center
                 </Typography>

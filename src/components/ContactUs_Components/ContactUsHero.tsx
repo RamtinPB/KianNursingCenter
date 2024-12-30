@@ -6,7 +6,7 @@ export default function ContactUsHero() {
       <div className="relative flex flex-col items-center justify-center">
         <div className="flex flex-col items-center justify-center">
           <div className="absolute inset-0 bg-[url('/assets/Black_Desk1_NoBG.png')] bg-cover bg-top bg-no-repeat blur-md" />
-          <div className="relative mb-56 mt-64 md:mb-64 md:mt-72">
+          <div className="relative mb-64 mt-64 md:mb-64 md:mt-72">
             <div className="flex items-center px-10">
               <div className="flex flex-col items-center justify-center">
                 {/* @ts-ignore */}
