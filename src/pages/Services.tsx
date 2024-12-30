@@ -2,9 +2,8 @@ import ServicesSectionCard from "../components/Services_Components/ServicesSecti
 import ServicesNavigationCard from "../components/Services_Components/ServicesNavigationCard";
 import LymphedemaContent from "../components/Services_Components/MainContent/LymphedemaContent";
 import WoundContent from "../components/Services_Components/MainContent/WoundContent";
-import { SetStateAction, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Tabs, TabsHeader, Tab } from "@material-tailwind/react";
-import { data } from "react-router-dom";
 
 export default function Services() {
   const [selectedCard, setSelectedCard] = useState<string | null>(
