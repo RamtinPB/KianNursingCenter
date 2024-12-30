@@ -21,7 +21,7 @@ function RenderSubSectionContent({
         {title}
       </Typography>
       {/* @ts-ignore */}
-      <Typography variant="paragraph" className="!text-justify text-gray-700">
+      <Typography variant="paragraph" className="!text-pretty text-gray-700">
         {description}
       </Typography>
       {/* @ts-ignore */}
