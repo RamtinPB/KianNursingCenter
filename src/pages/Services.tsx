@@ -2,7 +2,9 @@ import ServicesSectionCard from "../components/Services_Components/ServicesSecti
 import ServicesNavigationCard from "../components/Services_Components/ServicesNavigationCard";
 import LymphedemaContent from "../components/Services_Components/MainContent/LymphedemaContent";
 import WoundContent from "../components/Services_Components/MainContent/WoundContent";
-import { useRef, useState } from "react";
+import { SetStateAction, useRef, useState } from "react";
+import { Tabs, TabsHeader, Tab } from "@material-tailwind/react";
+import { data } from "react-router-dom";
 
 export default function Services() {
   const [selectedCard, setSelectedCard] = useState<string | null>(
@@ -36,7 +38,28 @@ export default function Services() {
             />
           </div>
           <div className="col-span-12 my-8 flex flex-col lg:col-span-6 lg:border-l-2 lg:border-r-2">
-            <div className="bg-gray-100 px-8">
+            <div className="mx-5 mb-10 lg:hidden">
+              <Tabs id="custom-animation" value="selectedCard">
+                {/* @ts-ignore */}
+                <TabsHeader>
+                  {/* @ts-ignore */}
+                  <Tab
+                    value={"LymphedemaContent"}
+                    onClick={() => setSelectedCard("LymphedemaContent")}
+                  >
+                    Lymphedema
+                  </Tab>
+                  {/* @ts-ignore */}
+                  <Tab
+                    value={"WoundContent"}
+                    onClick={() => setSelectedCard("WoundContent")}
+                  >
+                    Wound Care
+                  </Tab>
+                </TabsHeader>
+              </Tabs>
+            </div>
+            <div className="px-8">
               <div className="container mx-auto">
                 {selectedCard === "LymphedemaContent" && (
                   <LymphedemaContent sectionRefs={sectionRefs} />
