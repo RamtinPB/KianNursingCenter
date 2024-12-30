@@ -46,7 +46,7 @@ interface NestedBulletPointsProps {
 function NestedBulletPoints({ points }: NestedBulletPointsProps) {
   return (
     <div>
-      <ul className="mx-5 list-disc text-pretty text-gray-700">
+      <ul className="mx-5 list-disc !text-pretty text-gray-700">
         {points.map((point, index) => (
           <li key={index}>
             {/* @ts-ignore */}
