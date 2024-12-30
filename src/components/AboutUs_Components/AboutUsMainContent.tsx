@@ -188,7 +188,7 @@ export default function AboutUsMainContent() {
                     {/* @ts-ignore */}
                     <Typography
                       variant="paragraph"
-                      className="mt-4 !text-pretty text-gray-100"
+                      className="mt-4 !text-justify text-gray-100"
                     >
                       {desc}
                     </Typography>
