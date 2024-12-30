@@ -46,7 +46,7 @@ function RenderCards({ schedule }: RenderCardsProps) {
                     <Typography
                       variant="small"
                       color="blue-gray"
-                      className="font-bold"
+                      className="pe-2 font-bold"
                     >
                       {item.Day}
                     </Typography>
