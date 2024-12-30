@@ -135,7 +135,7 @@ export default function ContactUsOperationHours() {
             </Typography>
           </div>
           <div className="mb-6 flex flex-col items-center justify-between gap-16 md:flex-row">
-            <div className="flex h-[440px] flex-1 flex-col rounded-xl bg-gray-900 p-6 shadow-lg transition-all duration-300 hover:shadow-2xl md:p-10 md:hover:scale-105">
+            <div className="flex h-[440px] w-[370px] flex-1 flex-col rounded-xl bg-gray-900 p-6 shadow-lg transition-all duration-300 hover:shadow-2xl md:w-auto md:p-10 md:hover:scale-105">
               {/* @ts-ignore */}
               <Typography variant="h4" className="mb-2 text-gray-200">
                 Lymphedema Care Hours
@@ -150,7 +150,7 @@ export default function ContactUsOperationHours() {
               </Typography>
               <RenderCards schedule={LymphedemaSchedule} />
             </div>
-            <div className="flex h-[440px] flex-1 flex-col rounded-xl bg-gray-900 p-6 shadow-lg transition-all duration-300 hover:shadow-2xl md:p-10 md:hover:scale-105">
+            <div className="flex h-[440px] w-[370px] flex-1 flex-col rounded-xl bg-gray-900 p-6 shadow-lg transition-all duration-300 hover:shadow-2xl md:p-10 md:hover:scale-105">
               {/* @ts-ignore */}
               <Typography variant="h4" className="mb-2 text-gray-200">
                 Wound Care Hours
