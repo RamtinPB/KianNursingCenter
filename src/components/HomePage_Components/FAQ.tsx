@@ -34,7 +34,7 @@ function FaqAccordion({
       {/* @ts-ignore */}
       <AccordionHeader onClick={onToggle} className="rounded-xl">
         {/* @ts-ignore */}
-        <Typography variant="h6" className="!text-justify text-gray-100">
+        <Typography variant="h6" className="!text-pretty text-gray-100">
           {question}
         </Typography>
       </AccordionHeader>
