@@ -20,7 +20,7 @@ export default function Header() {
   return (
     <>
       <div
-        className={`absolute inset-0 top-0 ${showMenu ? "max-h-[325.6px]" : "max-h-[56px]"} w-full bg-white transition-[max-height] duration-[600ms] ease-in-out`}
+        className={`absolute inset-0 top-0 ${showMenu ? "max-h-[325.6px]" : "max-h-[56px] lg:max-h-[76px]"} w-full bg-white transition-[max-height] duration-[600ms] ease-in-out`}
       />
       {/* @ts-ignore */}
       <Navbar

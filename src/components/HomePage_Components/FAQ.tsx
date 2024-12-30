@@ -42,7 +42,7 @@ function FaqAccordion({
         {/* @ts-ignore */}
         <Typography
           variant="paragraph"
-          className="px-6 !text-justify text-gray-600 md:px-5"
+          className="px-6 !text-justify text-gray-600"
         >
           {answer}
         </Typography>
@@ -116,7 +116,7 @@ export default function FAQ() {
           <Typography variant="h3" className="text-center text-gray-800">
             Frequently Asked Questions
           </Typography>
-          <div className="mx-10 mt-8 flex flex-col items-center gap-10">
+          <div className="mx-10 mt-8 flex flex-col items-center gap-10 lg:mx-32">
             {faqs.map((faq, index) => (
               <FaqAccordion
                 key={index}

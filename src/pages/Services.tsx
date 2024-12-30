@@ -1,149 +1,61 @@
-import { Typography } from "@material-tailwind/react";
-
-interface ItemProps {
-  title: string;
-  desc: string;
-}
-
-function Item({ title, desc }: ItemProps) {
-  return (
-    <div className="mb-12 flex flex-col items-start">
-      {/* @ts-ignore */}
-      <Typography variant="lead" className="font-medium text-gray-900">
-        {title}
-      </Typography>
-      {/* @ts-ignore */}
-      <Typography variant="paragraph" className="text-justify text-gray-700">
-        {desc}
-      </Typography>
-    </div>
-  );
-}
-
-const LympItems = [
-  {
-    title: "Item #1",
-    desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam at minima ea officiis! Soluta dignissimos obcaecati aspernatur at doloremque, debitis suscipit perferendis, dolore consectetur recusandae dicta praesentium culpa labore? Atque.",
-  },
-  {
-    title: "Item #2",
-    desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam at minima ea officiis! Soluta dignissimos obcaecati aspernatur at doloremque, debitis suscipit perferendis, dolore consectetur recusandae dicta praesentium culpa labore? Atque.",
-  },
-  {
-    title: "Item #3",
-    desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam at minima ea officiis! Soluta dignissimos obcaecati aspernatur at doloremque, debitis suscipit perferendis, dolore consectetur recusandae dicta praesentium culpa labore? Atque.",
-  },
-];
-
-const WoundItems = [
-  {
-    title: "Item #1",
-    desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam at minima ea officiis! Soluta dignissimos obcaecati aspernatur at doloremque, debitis suscipit perferendis, dolore consectetur recusandae dicta praesentium culpa labore? Atque.",
-  },
-  {
-    title: "Item #2",
-    desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam at minima ea officiis! Soluta dignissimos obcaecati aspernatur at doloremque, debitis suscipit perferendis, dolore consectetur recusandae dicta praesentium culpa labore? Atque.",
-  },
-  {
-    title: "Item #3",
-    desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam at minima ea officiis! Soluta dignissimos obcaecati aspernatur at doloremque, debitis suscipit perferendis, dolore consectetur recusandae dicta praesentium culpa labore? Atque.",
-  },
-];
+import ServicesSectionCard from "../components/Services_Components/ServicesSectionsCard";
+import ServicesNavigationCard from "../components/Services_Components/ServicesNavigationCard";
+import LymphedemaContent from "../components/Services_Components/MainContent/LymphedemaContent";
+import WoundContent from "../components/Services_Components/MainContent/WoundContent";
+import { useRef, useState } from "react";
 
 export default function Services() {
+  const [selectedCard, setSelectedCard] = useState<string | null>(
+    "LymphedemaContent",
+  );
+
+  // References for LymphedemaContent sections
+  const sectionRefs = {
+    section1: useRef<HTMLDivElement>(null),
+    section2: useRef<HTMLDivElement>(null),
+    section3: useRef<HTMLDivElement>(null),
+    section4: useRef<HTMLDivElement>(null),
+  };
+
+  // Scroll to a specific section
+  const scrollToSection = (section: string) => {
+    const ref = sectionRefs[section as keyof typeof sectionRefs];
+    if (ref?.current) {
+      ref.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <>
-      <div className="w-screen bg-gray-100 px-8 md:px-0">
-        <div className="container mx-auto">
-          <div className="flex flex-col-reverse gap-20 py-20 md:flex-row">
-            <div className="flex flex-1 flex-col items-start pb-10 pt-6 lg:pb-20">
-              {/* @ts-ignore */}
-              <Typography variant="h4" className="font-bold text-green-700">
-                Lymphedema Treatments
-              </Typography>
-              {/* @ts-ignore */}
-              <Typography
-                variant="small"
-                className="mb-12 font-medium text-gray-600"
-              >
-                for patients with lymphedema related illnesses
-              </Typography>
-              <hr className="mb-12 w-full border-gray-400" />
-              {LympItems.map((item, key) => (
-                <Item key={key} {...item} />
-              ))}
-            </div>
-            <div className="mx-auto grid flex-1 grid-cols-2 place-items-center gap-4 py-6">
-              <div className="">
-                <img
-                  src="./assets/family.jpg"
-                  alt="Image 3"
-                  className="h-auto w-full translate-y-4 rounded-lg object-cover"
-                />
-                <img
-                  src="./assets/massage-therapee-nobackground.png"
-                  alt="Image 4"
-                  className="h-auto w-full translate-y-8 object-cover"
-                />
-              </div>
-
-              <div className="">
-                <img
-                  src="./assets/EKG_neon.jpg"
-                  alt="Image 5"
-                  className="h-auto w-full -translate-y-12 rounded-lg object-cover"
-                />
-                <img
-                  src="./assets/doc_table_NoBG.png"
-                  alt="Image 6"
-                  className="h-auto w-full -translate-y-10 object-cover"
-                />
+      <div className="bg-gray-100 px-0">
+        <div className="grid grid-cols-12">
+          <div className="bg-gray col-span-3 hidden items-start justify-center px-5 py-8 lg:flex">
+            <ServicesNavigationCard
+              scrollToSection={scrollToSection}
+              selectedCard={selectedCard}
+            />
+          </div>
+          <div className="col-span-12 my-8 flex flex-col lg:col-span-6 lg:border-l-2 lg:border-r-2">
+            <div className="bg-gray-100 px-8">
+              <div className="container mx-auto">
+                {selectedCard === "LymphedemaContent" && (
+                  <LymphedemaContent sectionRefs={sectionRefs} />
+                )}
+                {selectedCard === "WoundContent" && (
+                  <WoundContent sectionRefs={sectionRefs} />
+                )}
               </div>
             </div>
           </div>
-
-          <div className="grid grid-cols-1 gap-20 lg:grid-cols-2">
-            <div className="mx-auto grid grid-cols-2 gap-4 py-20">
-              <div className="">
-                <img
-                  src="./assets/doc-standing.png"
-                  alt="Image 5"
-                  className="h-full w-full rounded-lg object-cover"
-                />
-              </div>
-              <div className="">
-                <img
-                  src="./assets/family.jpg"
-                  alt="Image 3"
-                  className="h-auto w-full translate-y-28 rounded-lg object-cover"
-                />
-                <img
-                  src="./assets/EKG_neon.jpg"
-                  alt="Image 4"
-                  className="h-auto w-full translate-y-32 rounded-lg object-cover"
-                />
-              </div>
-            </div>
-            <div className="flex flex-col items-start py-20">
-              {/* @ts-ignore */}
-              <Typography variant="h4" className="font-bold text-green-700">
-                Wound Care Treatments
-              </Typography>
-              {/* @ts-ignore */}
-              <Typography
-                variant="small"
-                className="mb-12 font-medium text-gray-600"
-              >
-                for patients with Wounds and related illnesses
-              </Typography>
-              <hr className="mb-12 w-full border-gray-400" />
-              {WoundItems.map((item, key) => (
-                <Item key={key} {...item} />
-              ))}
-            </div>
+          <div className="bg-gray col-span-3 hidden flex-col items-center justify-start gap-6 px-6 py-8 lg:flex">
+            <ServicesSectionCard
+              selectedCard={selectedCard}
+              setSelectedCard={setSelectedCard}
+            />
           </div>
         </div>
       </div>
+
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
         <path
           fill="#f5f5f5"
