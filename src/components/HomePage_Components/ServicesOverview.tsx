@@ -13,7 +13,7 @@ function ServiceCard({ img, title, description }: ServiceCardProps) {
     //@ts-ignore
     <Card className="transform transition-transform duration-300 hover:scale-105 active:scale-105">
       {/* @ts-ignore */}
-      <CardBody className="flex flex-col items-center justify-center gap-2 text-pretty p-4 md:p-5">
+      <CardBody className="flex flex-col items-center justify-center gap-2 text-pretty p-4 text-start md:p-5 md:text-center">
         <img src={img} alt={title} className="h-56 lg:h-72" />
         {/* @ts-ignore */}
         <Typography variant="h5" className="text-xl font-semibold">
