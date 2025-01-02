@@ -31,7 +31,7 @@ export default function ContactUsHero() {
             <div className="grid grid-cols-1 gap-3 text-center md:grid-cols-4 lg:gap-24">
               <div className="flex flex-col items-center justify-center gap-2 p-6">
                 {/* @ts-ignore */}
-                <IconButton className="hover:shadow-xl">
+                <IconButton className="cursor-auto hover:shadow-lg">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -60,7 +60,7 @@ export default function ContactUsHero() {
 
               <div className="flex flex-col items-center justify-center gap-2 p-6">
                 {/* @ts-ignore */}
-                <IconButton className="hover:shadow-xl">
+                <IconButton className="cursor-auto hover:shadow-lg">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -86,7 +86,7 @@ export default function ContactUsHero() {
 
               <div className="flex flex-col items-center justify-center gap-2 p-6">
                 {/* @ts-ignore */}
-                <IconButton className="hover:shadow-xl">
+                <IconButton className="cursor-auto hover:shadow-lg">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -115,7 +115,7 @@ export default function ContactUsHero() {
 
               <div className="flex flex-col items-center justify-center gap-2 p-6">
                 {/* @ts-ignore */}
-                <IconButton className="hover:shadow-xl">
+                <IconButton className="cursor-auto hover:shadow-lg">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
