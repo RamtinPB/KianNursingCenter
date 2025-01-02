@@ -171,6 +171,7 @@ export default function AboutUsMainContent() {
                 ))}
               </div>
             </div>
+            {/* Main Content */}
             <div className="h-[470px] w-full flex-1 rounded-lg bg-black p-8 shadow-lg">
               <div
                 key={selectedIndexForFade}
@@ -188,7 +189,7 @@ export default function AboutUsMainContent() {
                     {/* @ts-ignore */}
                     <Typography
                       variant="paragraph"
-                      className="mt-4 !text-justify text-gray-100"
+                      className="mt-4 text-pretty text-gray-100"
                     >
                       {desc}
                     </Typography>

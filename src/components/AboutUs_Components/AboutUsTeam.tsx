@@ -49,7 +49,7 @@ function TeamCard({ img, name, title, description }: TeamCardPropsType) {
         {/* @ts-ignore */}
         <Typography
           color="blue-gray"
-          className="mb-2 !text-base !font-semibold text-gray-600"
+          className="mb-2 mt-1 !text-base !font-semibold text-gray-600"
         >
           {title}
         </Typography>
@@ -57,7 +57,7 @@ function TeamCard({ img, name, title, description }: TeamCardPropsType) {
         <Typography
           variant="small"
           color="blue-gray"
-          className="!text-justify font-normal text-gray-500"
+          className="text-pretty text-start font-normal text-gray-500"
         >
           {description}
         </Typography>
@@ -135,7 +135,7 @@ export default function AboutUsTeam() {
             {/* @ts-ignore */}
             <Typography
               variant="lead"
-              className="mx-auto w-full max-w-4xl !text-pretty text-gray-500"
+              className="mx-auto w-full max-w-4xl text-pretty text-gray-500"
             >
               From compassionate caregivers to skilled therapists and dedicated
               support staff, each team member plays a vital role in providing

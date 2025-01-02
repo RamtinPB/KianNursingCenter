@@ -20,7 +20,7 @@ function ServiceCard({ img, title, description }: ServiceCardProps) {
           {title}
         </Typography>
         {/* @ts-ignore */}
-        <Typography className="mb-4 !text-pretty text-base font-normal text-gray-600 md:mb-6 md:mt-4">
+        <Typography className="mx-2 mb-4 text-base font-normal text-gray-600 md:mb-6 md:mt-4">
           {description}
         </Typography>
         {/* @ts-ignore */}

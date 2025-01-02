@@ -15,13 +15,13 @@ function RenderSubSectionContent({
   bullet,
 }: RenderSubSectionContentProps) {
   return (
-    <div className="mb-6 flex flex-col items-start">
+    <div className="mb-3 flex flex-col items-start text-pretty">
       {/* @ts-ignore */}
       <Typography variant="lead" className="font-medium text-gray-900">
         {title}
       </Typography>
       {/* @ts-ignore */}
-      <Typography variant="paragraph" className="!text-justify text-gray-700">
+      <Typography variant="paragraph" className="text-gray-700">
         {description}
       </Typography>
       {/* @ts-ignore */}
@@ -46,7 +46,7 @@ interface NestedBulletPointsProps {
 function NestedBulletPoints({ points }: NestedBulletPointsProps) {
   return (
     <div>
-      <ul className="mx-5 list-disc !text-pretty text-gray-700">
+      <ul className="mx-5 list-disc text-gray-700">
         {points.map((point, index) => (
           <li key={index}>
             {/* @ts-ignore */}

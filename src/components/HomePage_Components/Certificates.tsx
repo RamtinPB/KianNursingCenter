@@ -175,7 +175,7 @@ export default function Certificates() {
                 {/* @ts-ignore */}
                 <Typography
                   variant="h6"
-                  className="mt-4 !text-pretty font-medium text-gray-500 md:mt-0"
+                  className="mt-4 !text-pretty font-medium text-gray-500"
                 >
                   Society for Oncology Massage (S4OM)
                 </Typography>
