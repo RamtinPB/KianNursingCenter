@@ -154,7 +154,7 @@ export default function Footer() {
                         as="a"
                         href="#"
                         variant="small"
-                        className="py-1.5 font-medium text-gray-500 transition-colors hover:text-green-600"
+                        className="py-1.5 font-medium text-gray-500 transition-colors"
                       >
                         {link}
                       </Typography>

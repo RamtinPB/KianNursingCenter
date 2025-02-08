@@ -1,5 +1,5 @@
-import ServicesSectionCard from "../components/Services_Components/ServicesSectionsCard";
-import ServicesNavigationCard from "../components/Services_Components/ServicesNavigationCard";
+import ServicesSectionCard from "../components/Services_Components/Services_SectionsCard";
+import ServicesNavigationCard from "../components/Services_Components/Services_NavigationCard";
 import LymphedemaContent from "../components/Services_Components/MainContent/LymphedemaContent";
 import WoundContent from "../components/Services_Components/MainContent/WoundContent";
 import { useRef, useState } from "react";

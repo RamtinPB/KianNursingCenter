@@ -6,16 +6,29 @@ import {
   List,
   ListItem,
 } from "@material-tailwind/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../ContextProviders/AuthContext";
 
 export default function Header() {
   const [showMenu, setShowMenu] = useState(false);
+
+  const [count, setCount] = useState(0);
+
+  const { loginState } = useAuth();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (count == 5) {
+      loginState ? navigate("/AdminDashboard") : navigate("/Login");
+      setCount(0);
+    }
+  }, [count]);
+
   function clickMenuBar() {
     setShowMenu((prev) => !prev);
   }
-
-  const navigate = useNavigate();
 
   return (
     <>
@@ -30,7 +43,12 @@ export default function Header() {
         <div className="container mx-auto flex flex-col items-center justify-between">
           <div className="container flex items-center justify-between gap-5">
             <div className="flex items-center justify-center gap-1">
-              <div className="flex gap-2">
+              <div
+                className="flex cursor-pointer gap-2"
+                onClick={() => {
+                  setCount((prev) => prev + 1);
+                }}
+              >
                 {/* <img src="" alt="KNC Logo" className="h-11 w-11" /> */}
                 {/* <div className="grid h-11 w-11 place-items-center rounded-full bg-gray-300">
                 <svg
@@ -130,7 +148,7 @@ export default function Header() {
             <Button
               ripple={true}
               color="black"
-              className="hidden transition-colors duration-300 hover:bg-green-600 md:block"
+              className="hidden transition-colors duration-300 hover:bg-green-600 hover:shadow-none md:block"
               onClick={() => {
                 navigate("/ContactUs");
                 window.scrollTo(0, 0);
