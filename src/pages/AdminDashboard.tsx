@@ -36,7 +36,7 @@ export default function AdminDashboard() {
   return (
     <>
       <div className="flex flex-col bg-blue-gray-50">
-        <div className="my-10 flex items-center justify-center">
+        <div className="my-16 flex items-center justify-center">
           {/* @ts-ignore */}
           <ButtonGroup>
             {/* @ts-ignore */}
