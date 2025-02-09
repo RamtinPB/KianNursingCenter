@@ -76,7 +76,7 @@ function RenderCards({
                 <tr key={item.name} className="hover:bg-gray-50">
                   <td className={classes}>
                     {/* @ts-ignore */}
-                    <Typography variant="small" className="">
+                    <Typography variant="small" className="text-wrap">
                       {item.name}
                     </Typography>
                   </td>
@@ -271,24 +271,28 @@ export default function SuppliesCalculator() {
     <>
       <div className="container mx-auto">
         <div className="flex flex-col gap-9 px-5 md:px-0">
-          <div className="flex flex-col gap-5 md:flex-row">
-            {/* @ts-ignore */}
-            <Select
-              label="Select Item"
-              color="blue-gray"
-              className="hover:shadow-md"
-              value={itemName ?? ""}
-              onChange={(name) => {
-                setItemName(name ?? "");
-              }}
-              key={supplies.length}
-            >
-              {supplies?.map((item) => (
-                <Option key={item.name} value={item.name}>
-                  {item.name}
-                </Option>
-              ))}
-            </Select>
+          <div className="flex flex-col gap-5 md:flex-col">
+            <div>
+              {/* @ts-ignore */}
+              <Select
+                label="Select Item"
+                color="blue-gray"
+                className="!text-nowrap hover:shadow-md"
+                menuProps={{ className: "text-left " }}
+                containerProps={{ className: "!text-nowrap" }}
+                value={itemName ?? ""}
+                onChange={(name) => {
+                  setItemName(name ?? "");
+                }}
+                key={supplies.length}
+              >
+                {supplies?.map((item) => (
+                  <Option key={item.name} value={item.name}>
+                    {item.name}
+                  </Option>
+                ))}
+              </Select>
+            </div>
             <CounterRender value={itemCount} setValue={setItemCount} />
             {/* @ts-ignore */}
             <Button
