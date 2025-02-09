@@ -28,16 +28,21 @@ interface CounterRenderProps {
 interface RenderCardsProps {
   TableContent: itemsListProps[];
   deleteItem: (itemName: string) => void;
+  CalculateItemPrice: (item: itemsListProps) => number;
 }
 
-const TABLE_HEAD = ["Item", "Price Per Item", "Count", ""];
+const TABLE_HEAD = ["Item", "Price Per Item", "Count", "Total Per Item", ""];
 
-function RenderCards({ TableContent, deleteItem }: RenderCardsProps) {
+function RenderCards({
+  TableContent,
+  deleteItem,
+  CalculateItemPrice,
+}: RenderCardsProps) {
   return (
     <>
       {/* @ts-ignore */}
       <Card className="h-full w-full px-4 py-1 md:px-9 md:py-4">
-        <table className="w-full min-w-max table-auto text-left">
+        <table className="w-full min-w-max table-fixed text-left">
           <thead>
             <tr>
               {TABLE_HEAD.map((head, index) => {
@@ -45,7 +50,7 @@ function RenderCards({ TableContent, deleteItem }: RenderCardsProps) {
                 return (
                   <th
                     key={head}
-                    className={`border-b border-gray-300 py-4 ${isLast ? "w-11" : ""}`}
+                    className={`border-b border-gray-300 px-1 py-3 md:px-3 md:py-4 ${isLast ? "w-8 md:w-12" : ""}`}
                   >
                     {/* @ts-ignore */}
                     <Typography
@@ -63,7 +68,9 @@ function RenderCards({ TableContent, deleteItem }: RenderCardsProps) {
           <tbody>
             {TableContent.map((item, index) => {
               const isLast = index === TableContent.length - 1;
-              const classes = isLast ? "py-3" : "py-3 border-b border-gray-300";
+              const classes = isLast
+                ? "p-1 md:p-3"
+                : "p-1 md:p-3 border-b border-gray-300";
 
               return (
                 <tr key={item.name} className="hover:bg-gray-50">
@@ -83,6 +90,12 @@ function RenderCards({ TableContent, deleteItem }: RenderCardsProps) {
                     {/* @ts-ignore */}
                     <Typography variant="small" className="">
                       {item.count}
+                    </Typography>
+                  </td>
+                  <td className={classes}>
+                    {/* @ts-ignore */}
+                    <Typography variant="small" className="">
+                      {CalculateItemPrice(item)}
                     </Typography>
                   </td>
                   <td className={`${classes}`}>
@@ -128,15 +141,7 @@ function CounterRender({ value, setValue }: CounterRenderProps) {
 
   return (
     <div className="h-full rounded transition-shadow hover:shadow-md">
-      {/* @ts-ignore */}
-      {/* <Typography
-        variant="small"
-        color="blue-gray"
-        className="mb-1 font-medium"
-      >
-        Select Amount
-      </Typography> */}
-      <div className="relative w-full">
+      <div className="relative">
         {/* @ts-ignore */}
         <Input
           id="count"
@@ -200,6 +205,8 @@ export default function SuppliesCalculator() {
   const [itemCount, setItemCount] = useState<number | null>(null);
   const [itemName, setItemName] = useState<string>("");
 
+  const [totalPrice, setTotalPrice] = useState<number>(0);
+
   useEffect(() => {
     const fetchSuppliesData = async () => {
       try {
@@ -218,8 +225,12 @@ export default function SuppliesCalculator() {
   }, []);
 
   function addItem(itemName: string, itemCount: number) {
-    const selectedItem = supplies.find((item) => item.name === itemName);
+    if (itemCount < 1) {
+      console.warn(`Count: "${itemCount}" is not valid.`);
+      return;
+    }
 
+    const selectedItem = supplies.find((item) => item.name === itemName);
     if (!selectedItem) {
       console.error(`Item "${itemName}" not found in supplies.`);
       return;
@@ -244,15 +255,23 @@ export default function SuppliesCalculator() {
     );
   }
 
+  function CalculateItemPrice(item: itemsListProps): number {
+    return item.price * item.count;
+  }
+
   useEffect(() => {
-    console.log(itemsList);
-  }, [itemsList]);
+    const total = itemsList.reduce(
+      (sum, item) => sum + item.price * item.count,
+      0,
+    );
+    setTotalPrice(total);
+  }, [itemsList]); // Recalculates whenever itemsList changes
 
   return (
     <>
       <div className="container mx-auto">
-        <div className="flex flex-col gap-9">
-          <div className="flex flex-row gap-5">
+        <div className="flex flex-col gap-9 px-5 md:px-0">
+          <div className="flex flex-col gap-5 md:flex-row">
             {/* @ts-ignore */}
             <Select
               label="Select Item"
@@ -260,7 +279,7 @@ export default function SuppliesCalculator() {
               className="hover:shadow-md"
               value={itemName ?? ""}
               onChange={(name) => {
-                setItemName(name ?? ""), console.log(name);
+                setItemName(name ?? "");
               }}
               key={supplies.length}
             >
@@ -275,16 +294,35 @@ export default function SuppliesCalculator() {
             <Button
               variant="gradient"
               color="green"
-              className="h-full w-32 text-nowrap"
+              className="h-full text-nowrap md:w-1/4 lg:w-1/6"
               onClick={() => addItem(itemName as string, itemCount as number)}
             >
               Add Item
             </Button>
           </div>
-          <div>
-            <RenderCards TableContent={itemsList} deleteItem={deleteItem} />
-          </div>
-          <div></div>
+          <RenderCards
+            TableContent={itemsList}
+            deleteItem={deleteItem}
+            CalculateItemPrice={CalculateItemPrice}
+          />
+          {/* @ts-ignore */}
+          <Card className="mb-3 flex h-full w-full flex-row items-center justify-between px-4 py-2 md:px-9 md:py-4">
+            <div className="flex flex-col">
+              {/* @ts-ignore */}
+              <Typography variant="h5" color="black">
+                {`Total Price: ${totalPrice}`}
+              </Typography>
+            </div>
+            {/* @ts-ignore */}
+            <Button
+              variant="gradient"
+              color="black"
+              className="h-full text-nowrap text-white md:w-32"
+              onClick={() => setItemsList([])}
+            >
+              Clear Items
+            </Button>
+          </Card>
         </div>
       </div>
     </>

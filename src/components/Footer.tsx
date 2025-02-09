@@ -171,7 +171,7 @@ export default function Footer() {
             </Typography>
             {/* @ts-ignore */}
             <Typography variant="small" className="text- text-gray-600">
-              © 2024 RAM - Digital Design and Development.
+              © 2024 RAM - Design and Development.
             </Typography>
           </div>
         </div>
