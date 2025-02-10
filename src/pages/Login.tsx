@@ -148,7 +148,7 @@ export default function Login() {
                   <Input
                     variant="outlined"
                     color="blue-gray"
-                    type={showPassword ? "password" : "text"}
+                    type={showPassword ? "text" : "password"}
                     label={"Password"}
                     placeholder="**********"
                     className="min-w-[201.6px]"
