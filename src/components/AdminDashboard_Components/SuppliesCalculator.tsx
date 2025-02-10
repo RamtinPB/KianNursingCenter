@@ -8,6 +8,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
+import "../../CustomCSS/SelectOverflow.css";
 
 interface SuppliesProps {
   name: string;
@@ -271,15 +272,14 @@ export default function SuppliesCalculator() {
     <>
       <div className="container mx-auto">
         <div className="flex flex-col gap-9 px-5 md:px-0">
-          <div className="flex flex-col gap-5 md:flex-col">
-            <div>
+          <div className="flex flex-col gap-5 md:flex-row">
+            <div className="w-full">
               {/* @ts-ignore */}
               <Select
                 label="Select Item"
                 color="blue-gray"
-                className="!text-nowrap hover:shadow-md"
-                menuProps={{ className: "text-left " }}
-                containerProps={{ className: "!text-nowrap" }}
+                className="clip-path overflow-hidden whitespace-nowrap hover:shadow-md"
+                menuProps={{ className: "text-left" }}
                 value={itemName ?? ""}
                 onChange={(name) => {
                   setItemName(name ?? "");
@@ -293,16 +293,20 @@ export default function SuppliesCalculator() {
                 ))}
               </Select>
             </div>
-            <CounterRender value={itemCount} setValue={setItemCount} />
-            {/* @ts-ignore */}
-            <Button
-              variant="gradient"
-              color="green"
-              className="h-full text-nowrap md:w-1/4 lg:w-1/6"
-              onClick={() => addItem(itemName as string, itemCount as number)}
-            >
-              Add Item
-            </Button>
+            <div className="">
+              <CounterRender value={itemCount} setValue={setItemCount} />
+            </div>
+            <div className="">
+              {/* @ts-ignore */}
+              <Button
+                variant="gradient"
+                color="green"
+                className="h-full w-full text-nowrap"
+                onClick={() => addItem(itemName as string, itemCount as number)}
+              >
+                Add Item
+              </Button>
+            </div>
           </div>
           <RenderCards
             TableContent={itemsList}
@@ -321,7 +325,7 @@ export default function SuppliesCalculator() {
             <Button
               variant="gradient"
               color="black"
-              className="h-full text-nowrap text-white md:w-32"
+              className="h-full !text-nowrap text-white md:w-32"
               onClick={() => setItemsList([])}
             >
               Clear Items
