@@ -1,12 +1,12 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import HomePage from "./Pages/Homepage";
+import HomePage from "./pages/Homepage";
 import MainLayout from "./MainLayout";
-import AboutUs from "./Pages/AboutUs";
-import Services from "./Pages/Services";
-import ContactUs from "./Pages/ContactUs";
-import Login from "./Pages/Login";
-import AdminDashboard from "./Pages/AdminDashboard";
+import AboutUs from "./pages/AboutUs";
+import Services from "./pages/Services";
+import ContactUs from "./pages/ContactUs";
+import Login from "./pages/Login";
+import AdminDashboard from "./pages/AdminDashboard";
 
 function App() {
   return (
