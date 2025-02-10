@@ -26,7 +26,7 @@ interface CounterRenderProps {
   setValue: (newValue: number) => void;
 }
 
-interface RenderCardsProps {
+interface RenderItemsTableProps {
   TableContent: itemsListProps[];
   deleteItem: (itemName: string) => void;
   CalculateItemPrice: (item: itemsListProps) => number;
@@ -34,11 +34,15 @@ interface RenderCardsProps {
 
 const TABLE_HEAD = ["Item", "Price Per Item", "Count", "Total Per Item", ""];
 
-function RenderCards({
+function formatNumberWithCommas(Num: number): string {
+  return Num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function RenderItemsTable({
   TableContent,
   deleteItem,
   CalculateItemPrice,
-}: RenderCardsProps) {
+}: RenderItemsTableProps) {
   return (
     <>
       {/* @ts-ignore */}
@@ -84,7 +88,7 @@ function RenderCards({
                   <td className={classes}>
                     {/* @ts-ignore */}
                     <Typography variant="small" className="">
-                      {item.price}
+                      {`${formatNumberWithCommas(item.price)} Rial`}
                     </Typography>
                   </td>
                   <td className={classes}>
@@ -96,7 +100,7 @@ function RenderCards({
                   <td className={classes}>
                     {/* @ts-ignore */}
                     <Typography variant="small" className="">
-                      {CalculateItemPrice(item)}
+                      {`${formatNumberWithCommas(CalculateItemPrice(item))} Rial`}
                     </Typography>
                   </td>
                   <td className={`${classes}`}>
@@ -141,7 +145,7 @@ function CounterRender({ value, setValue }: CounterRenderProps) {
   }
 
   return (
-    <div className="h-full rounded transition-shadow hover:shadow-md">
+    <div className="h-full">
       <div className="relative">
         {/* @ts-ignore */}
         <Input
@@ -150,7 +154,7 @@ function CounterRender({ value, setValue }: CounterRenderProps) {
           value={examineValue(value) ?? ""}
           placeholder="set amount"
           onChange={(e) => setValue(Number(e.target.value))}
-          className="appearance-none !border-t-blue-gray-200 placeholder:text-blue-gray-300 placeholder:opacity-100 focus:!border-t-gray-900 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+          className="appearance-none !border-t-blue-gray-200 placeholder:text-blue-gray-300 placeholder:opacity-100 hover:shadow-md focus:!border-t-gray-900 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
           labelProps={{
             className: "before:content-none after:content-none",
           }}
@@ -165,7 +169,7 @@ function CounterRender({ value, setValue }: CounterRenderProps) {
             variant="text"
             className="rounded bg-transparent"
             onClick={() =>
-              setValue((value as number) <= 0 ? 0 : (value as number) - 1)
+              setValue((value as number) <= 1 ? 1 : (value as number) - 1)
             }
           >
             <svg
@@ -203,7 +207,7 @@ export default function SuppliesCalculator() {
   const [supplies, setSupplies] = useState<SuppliesProps[]>([]);
   const [itemsList, setItemsList] = useState<itemsListProps[]>([]);
 
-  const [itemCount, setItemCount] = useState<number | null>(null);
+  const [itemCount, setItemCount] = useState<number | null>(1);
   const [itemName, setItemName] = useState<string>("");
 
   const [totalPrice, setTotalPrice] = useState<number>(0);
@@ -278,8 +282,9 @@ export default function SuppliesCalculator() {
               <Select
                 label="Select Item"
                 color="blue-gray"
-                className="clip-path overflow-hidden whitespace-nowrap hover:shadow-md"
-                menuProps={{ className: "text-left" }}
+                className="overflow-hidden whitespace-nowrap hover:shadow-md"
+                menuProps={{ className: "" }}
+                containerProps={{ className: "text-left" }}
                 value={itemName ?? ""}
                 onChange={(name) => {
                   setItemName(name ?? "");
@@ -308,7 +313,7 @@ export default function SuppliesCalculator() {
               </Button>
             </div>
           </div>
-          <RenderCards
+          <RenderItemsTable
             TableContent={itemsList}
             deleteItem={deleteItem}
             CalculateItemPrice={CalculateItemPrice}
@@ -318,7 +323,7 @@ export default function SuppliesCalculator() {
             <div className="flex flex-col">
               {/* @ts-ignore */}
               <Typography variant="h5" color="black">
-                {`Total Price: ${totalPrice}`}
+                {`Total Price: ${formatNumberWithCommas(totalPrice)} Rial`}
               </Typography>
             </div>
             {/* @ts-ignore */}
