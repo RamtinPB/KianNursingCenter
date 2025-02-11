@@ -3,8 +3,6 @@ import {
   Card,
   IconButton,
   Input,
-  Option,
-  Select,
   Typography,
 } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
@@ -26,6 +24,11 @@ interface CounterRenderProps {
   setValue: (newValue: number) => void;
 }
 
+interface RenderSelectTableProps {
+  TableContent: SuppliesProps[];
+  selectItem: (itemName: string) => void;
+}
+
 interface RenderItemsTableProps {
   TableContent: itemsListProps[];
   deleteItem: (itemName: string) => void;
@@ -34,8 +37,82 @@ interface RenderItemsTableProps {
 
 const TABLE_HEAD = ["Item", "Price Per Item", "Count", "Total Per Item", ""];
 
-function formatNumberWithCommas(Num: number): string {
-  return Num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+const SELECT_HEAD = ["#", "Item"];
+
+function formatNumberWithCommas(Num: number | null): string {
+  if (Num !== null) {
+    return Num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  } else return "N/A";
+}
+
+function RenderSelectTable({
+  TableContent,
+  selectItem,
+}: RenderSelectTableProps) {
+  return (
+    <>
+      {/* @ts-ignore */}
+      <Card className="h-full w-full px-4 py-1 md:px-9 md:py-4">
+        <div className="max-h-60 overflow-y-auto overscroll-contain">
+          <table
+            className="w-full min-w-max table-auto text-right"
+            style={{ direction: "rtl" }}
+          >
+            <thead>
+              <tr>
+                {SELECT_HEAD.map((head, index) => {
+                  return (
+                    <th
+                      key={head}
+                      className={`border-b border-gray-300 px-1 py-3 md:px-3 md:py-4 ${index == 0 ? "w-8 md:w-12" : ""}`}
+                    >
+                      {/* @ts-ignore */}
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-bold leading-none"
+                      >
+                        {head}
+                      </Typography>
+                    </th>
+                  );
+                })}
+              </tr>
+            </thead>
+            <tbody>
+              {TableContent.map((item, index) => {
+                const isLast = index === TableContent.length - 1;
+                const classes = isLast
+                  ? "p-1 md:p-3"
+                  : "p-1 md:p-3 border-b border-gray-300";
+
+                return (
+                  <tr
+                    key={item.name}
+                    className="hover:bg-gray-50"
+                    onClick={() => selectItem(item.name)}
+                  >
+                    <td className={classes}>
+                      {/* @ts-ignore */}
+                      <Typography variant="small" className="text-wrap">
+                        {index + 1}
+                      </Typography>
+                    </td>
+                    <td className={classes}>
+                      {/* @ts-ignore */}
+                      <Typography variant="small" className="text-wrap">
+                        {item.name}
+                      </Typography>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </Card>
+    </>
+  );
 }
 
 function RenderItemsTable({
@@ -47,85 +124,90 @@ function RenderItemsTable({
     <>
       {/* @ts-ignore */}
       <Card className="h-full w-full px-4 py-1 md:px-9 md:py-4">
-        <table className="w-full min-w-max table-fixed text-left">
-          <thead>
-            <tr>
-              {TABLE_HEAD.map((head, index) => {
-                const isLast = index === TABLE_HEAD.length - 1;
-                return (
-                  <th
-                    key={head}
-                    className={`border-b border-gray-300 px-1 py-3 md:px-3 md:py-4 ${isLast ? "w-8 md:w-12" : ""}`}
-                  >
-                    {/* @ts-ignore */}
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-bold leading-none"
+        <div className="max-h-60 overflow-y-auto">
+          <table
+            className="w-full min-w-max table-fixed text-right"
+            style={{ direction: "rtl" }}
+          >
+            <thead>
+              <tr>
+                {TABLE_HEAD.map((head, index) => {
+                  const isLast = index === TABLE_HEAD.length - 1;
+                  return (
+                    <th
+                      key={head}
+                      className={`border-b border-gray-300 px-1 py-3 md:px-3 md:py-4 ${isLast ? "w-8 md:w-12" : ""}`}
                     >
-                      {head}
-                    </Typography>
-                  </th>
+                      {/* @ts-ignore */}
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-bold leading-none"
+                      >
+                        {head}
+                      </Typography>
+                    </th>
+                  );
+                })}
+              </tr>
+            </thead>
+            <tbody>
+              {TableContent.map((item, index) => {
+                const isLast = index === TableContent.length - 1;
+                const classes = isLast
+                  ? "p-1 md:p-3"
+                  : "p-1 md:p-3 border-b border-gray-300";
+
+                return (
+                  <tr key={item.name} className="hover:bg-gray-50">
+                    <td className={classes}>
+                      {/* @ts-ignore */}
+                      <Typography variant="small" className="text-wrap">
+                        {item.name}
+                      </Typography>
+                    </td>
+                    <td className={classes}>
+                      {/* @ts-ignore */}
+                      <Typography variant="small" className="">
+                        {`${formatNumberWithCommas(item.price)} Rial`}
+                      </Typography>
+                    </td>
+                    <td className={classes}>
+                      {/* @ts-ignore */}
+                      <Typography variant="small" className="">
+                        {item.count}
+                      </Typography>
+                    </td>
+                    <td className={classes}>
+                      {/* @ts-ignore */}
+                      <Typography variant="small" className="">
+                        {`${formatNumberWithCommas(CalculateItemPrice(item))} Rial`}
+                      </Typography>
+                    </td>
+                    <td className={`${classes}`}>
+                      {/* @ts-ignore */}
+                      <IconButton
+                        className="rounded-full"
+                        size="sm"
+                        color="red"
+                        onClick={() => deleteItem(item.name)}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 16 16"
+                          fill="white"
+                          className="size-6"
+                        >
+                          <path d="M3.75 7.25a.75.75 0 0 0 0 1.5h8.5a.75.75 0 0 0 0-1.5h-8.5Z" />
+                        </svg>
+                      </IconButton>
+                    </td>
+                  </tr>
                 );
               })}
-            </tr>
-          </thead>
-          <tbody>
-            {TableContent.map((item, index) => {
-              const isLast = index === TableContent.length - 1;
-              const classes = isLast
-                ? "p-1 md:p-3"
-                : "p-1 md:p-3 border-b border-gray-300";
-
-              return (
-                <tr key={item.name} className="hover:bg-gray-50">
-                  <td className={classes}>
-                    {/* @ts-ignore */}
-                    <Typography variant="small" className="text-wrap">
-                      {item.name}
-                    </Typography>
-                  </td>
-                  <td className={classes}>
-                    {/* @ts-ignore */}
-                    <Typography variant="small" className="">
-                      {`${formatNumberWithCommas(item.price)} Rial`}
-                    </Typography>
-                  </td>
-                  <td className={classes}>
-                    {/* @ts-ignore */}
-                    <Typography variant="small" className="">
-                      {item.count}
-                    </Typography>
-                  </td>
-                  <td className={classes}>
-                    {/* @ts-ignore */}
-                    <Typography variant="small" className="">
-                      {`${formatNumberWithCommas(CalculateItemPrice(item))} Rial`}
-                    </Typography>
-                  </td>
-                  <td className={`${classes}`}>
-                    {/* @ts-ignore */}
-                    <IconButton
-                      className="rounded-full"
-                      size="sm"
-                      color="red"
-                      onClick={() => deleteItem(item.name)}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 16 16"
-                        fill="white"
-                        className="size-6"
-                      >
-                        <path d="M3.75 7.25a.75.75 0 0 0 0 1.5h8.5a.75.75 0 0 0 0-1.5h-8.5Z" />
-                      </svg>
-                    </IconButton>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </div>
       </Card>
     </>
   );
@@ -276,10 +358,16 @@ export default function SuppliesCalculator() {
     <>
       <div className="container mx-auto">
         <div className="flex flex-col gap-9 px-5 md:px-0">
+          <div>
+            <RenderSelectTable
+              TableContent={supplies}
+              selectItem={setItemName}
+            />
+          </div>
           <div className="flex flex-col gap-5 md:flex-row">
             <div className="w-full">
               {/* @ts-ignore */}
-              <Select
+              {/* <Select
                 label="Select Item"
                 color="blue-gray"
                 className="overflow-hidden whitespace-nowrap hover:shadow-md"
@@ -296,7 +384,23 @@ export default function SuppliesCalculator() {
                     {item.name}
                   </Option>
                 ))}
-              </Select>
+              </Select> */}
+              {/* @ts-ignore */}
+              <Input
+                id="itemName"
+                type="text"
+                readOnly={true}
+                value={itemName ?? ""}
+                placeholder="selected Item"
+                className="appearance-none !border-t-blue-gray-200 text-right placeholder:text-blue-gray-300 placeholder:opacity-100 hover:shadow-md focus:!border-t-gray-900 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }}
+                containerProps={{
+                  className: "min-w-0",
+                }}
+                style={{ direction: "rtl" }}
+              />
             </div>
             <div className="">
               <CounterRender value={itemCount} setValue={setItemCount} />
