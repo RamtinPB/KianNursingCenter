@@ -435,7 +435,7 @@ export default function SuppliesCalculator() {
             <Button
               variant="gradient"
               color="gray"
-              size="sm"
+              size="md"
               className="!text-nowrap text-white"
               onClick={() => setItemsList([])}
             >
