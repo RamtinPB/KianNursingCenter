@@ -94,13 +94,13 @@ function RenderSelectTable({
                   >
                     <td className={classes}>
                       {/* @ts-ignore */}
-                      <Typography variant="small" className="text-wrap">
+                      <Typography variant="lead" className="text-wrap">
                         {index + 1}
                       </Typography>
                     </td>
                     <td className={classes}>
                       {/* @ts-ignore */}
-                      <Typography variant="small" className="text-wrap">
+                      <Typography variant="lead" className="text-wrap">
                         {item.name}
                       </Typography>
                     </td>
