@@ -64,7 +64,7 @@ function RenderSelectTable({
                   return (
                     <th
                       key={head}
-                      className={`border-b border-gray-300 px-1 py-3 md:px-3 md:py-4 ${index == 0 ? "w-8 md:w-12" : ""}`}
+                      className={`border-b border-gray-300 px-4 py-4 md:px-3 md:py-4 ${index == 0 ? "w-8 md:w-12" : ""}`}
                     >
                       {/* @ts-ignore */}
                       <Typography
@@ -83,8 +83,8 @@ function RenderSelectTable({
               {TableContent.map((item, index) => {
                 const isLast = index === TableContent.length - 1;
                 const classes = isLast
-                  ? "p-1 md:p-3"
-                  : "p-1 md:p-3 border-b border-gray-300";
+                  ? "p-4 md:p-3"
+                  : "p-4 md:p-3 border-b border-gray-300";
 
                 return (
                   <tr
@@ -126,7 +126,7 @@ function RenderItemsTable({
       <Card className="h-full w-full px-4 py-1 md:px-9 md:py-4">
         <div className="max-h-60 overflow-y-auto">
           <table
-            className="w-full min-w-max table-fixed text-right"
+            className="w-full min-w-max table-auto text-right"
             style={{ direction: "rtl" }}
           >
             <thead>
@@ -136,7 +136,7 @@ function RenderItemsTable({
                   return (
                     <th
                       key={head}
-                      className={`border-b border-gray-300 px-1 py-3 md:px-3 md:py-4 ${isLast ? "w-8 md:w-12" : ""}`}
+                      className={`border-b border-gray-300 px-3 py-3 md:px-3 md:py-4 ${isLast ? "w-8 md:w-12" : ""}`}
                     >
                       {/* @ts-ignore */}
                       <Typography
@@ -155,8 +155,8 @@ function RenderItemsTable({
               {TableContent.map((item, index) => {
                 const isLast = index === TableContent.length - 1;
                 const classes = isLast
-                  ? "p-1 md:p-3"
-                  : "p-1 md:p-3 border-b border-gray-300";
+                  ? "p-3 md:p-3"
+                  : "p-3 md:p-3 border-b border-gray-300";
 
                 return (
                   <tr key={item.name} className="hover:bg-gray-50">
@@ -364,7 +364,7 @@ export default function SuppliesCalculator() {
               selectItem={setItemName}
             />
           </div>
-          <div className="flex flex-col gap-5 md:flex-row">
+          <div className="flex flex-col gap-5 md:flex-row-reverse">
             <div className="w-full">
               {/* @ts-ignore */}
               {/* <Select
@@ -410,7 +410,8 @@ export default function SuppliesCalculator() {
               <Button
                 variant="gradient"
                 color="green"
-                className="h-full w-full text-nowrap"
+                size="md"
+                className="text-nowrap"
                 onClick={() => addItem(itemName as string, itemCount as number)}
               >
                 Add Item
@@ -426,15 +427,16 @@ export default function SuppliesCalculator() {
           <Card className="mb-3 flex h-full w-full flex-row items-center justify-between px-4 py-2 md:px-9 md:py-4">
             <div className="flex flex-col">
               {/* @ts-ignore */}
-              <Typography variant="h5" color="black">
+              <Typography variant="h5" className="text-balance text-left">
                 {`Total Price: ${formatNumberWithCommas(totalPrice)} Rial`}
               </Typography>
             </div>
             {/* @ts-ignore */}
             <Button
               variant="gradient"
-              color="black"
-              className="h-full !text-nowrap text-white md:w-32"
+              color="gray"
+              size="sm"
+              className="!text-nowrap text-white"
               onClick={() => setItemsList([])}
             >
               Clear Items
