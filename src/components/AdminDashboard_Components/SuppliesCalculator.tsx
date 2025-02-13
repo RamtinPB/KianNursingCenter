@@ -98,19 +98,19 @@ function RenderSelectTable({
                   >
                     <td className={classes}>
                       {/* @ts-ignore */}
-                      <Typography variant="h4" className="text-wrap">
+                      <Typography variant="h5" className="text-wrap">
                         {index + 1}
                       </Typography>
                     </td>
                     <td className={classes}>
                       {/* @ts-ignore */}
-                      <Typography variant="h4" className="text-wrap">
+                      <Typography variant="h5" className="text-wrap">
                         {item.name}
                       </Typography>
                     </td>
                     <td className={classes}>
                       {/* @ts-ignore */}
-                      <Typography variant="h4" className="text-wrap">
+                      <Typography variant="h5" className="text-wrap">
                         {`${formatNumberWithCommas(item.price)} Rial`}
                       </Typography>
                     </td>
