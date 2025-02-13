@@ -3,6 +3,10 @@ import {
   Card,
   IconButton,
   Input,
+  Menu,
+  MenuHandler,
+  MenuItem,
+  MenuList,
   Typography,
 } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
@@ -37,7 +41,7 @@ interface RenderItemsTableProps {
 
 const TABLE_HEAD = ["Item", "Price Per Item", "Count", "Total Per Item", ""];
 
-const SELECT_HEAD = ["#", "Item"];
+const SELECT_HEAD = ["#", "Item", "Price"];
 
 function formatNumberWithCommas(Num: number | null): string {
   if (Num !== null) {
@@ -68,7 +72,7 @@ function RenderSelectTable({
                     >
                       {/* @ts-ignore */}
                       <Typography
-                        variant="small"
+                        variant="lead"
                         color="blue-gray"
                         className="font-bold leading-none"
                       >
@@ -94,14 +98,20 @@ function RenderSelectTable({
                   >
                     <td className={classes}>
                       {/* @ts-ignore */}
-                      <Typography variant="lead" className="text-wrap">
+                      <Typography variant="h4" className="text-wrap">
                         {index + 1}
                       </Typography>
                     </td>
                     <td className={classes}>
                       {/* @ts-ignore */}
-                      <Typography variant="lead" className="text-wrap">
+                      <Typography variant="h4" className="text-wrap">
                         {item.name}
+                      </Typography>
+                    </td>
+                    <td className={classes}>
+                      {/* @ts-ignore */}
+                      <Typography variant="h4" className="text-wrap">
+                        {`${formatNumberWithCommas(item.price)} Rial`}
                       </Typography>
                     </td>
                   </tr>
@@ -139,11 +149,7 @@ function RenderItemsTable({
                       className={`border-b border-gray-300 px-3 py-3 md:px-3 md:py-4 ${isLast ? "w-8 md:w-12" : ""}`}
                     >
                       {/* @ts-ignore */}
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-bold leading-none"
-                      >
+                      <Typography variant="h6" color="blue-gray" className="">
                         {head}
                       </Typography>
                     </th>
@@ -162,25 +168,25 @@ function RenderItemsTable({
                   <tr key={item.name} className="hover:bg-gray-50">
                     <td className={classes}>
                       {/* @ts-ignore */}
-                      <Typography variant="small" className="text-wrap">
+                      <Typography variant="lead" className="text-wrap">
                         {item.name}
                       </Typography>
                     </td>
                     <td className={classes}>
                       {/* @ts-ignore */}
-                      <Typography variant="small" className="">
+                      <Typography variant="lead" className="">
                         {`${formatNumberWithCommas(item.price)} Rial`}
                       </Typography>
                     </td>
                     <td className={classes}>
                       {/* @ts-ignore */}
-                      <Typography variant="small" className="">
+                      <Typography variant="lead" className="">
                         {item.count}
                       </Typography>
                     </td>
                     <td className={classes}>
                       {/* @ts-ignore */}
-                      <Typography variant="small" className="">
+                      <Typography variant="lead" className="">
                         {`${formatNumberWithCommas(CalculateItemPrice(item))} Rial`}
                       </Typography>
                     </td>
@@ -236,12 +242,12 @@ function CounterRender({ value, setValue }: CounterRenderProps) {
           value={examineValue(value) ?? ""}
           placeholder="set amount"
           onChange={(e) => setValue(Number(e.target.value))}
-          className="appearance-none !border-t-blue-gray-200 placeholder:text-blue-gray-300 placeholder:opacity-100 hover:shadow-md focus:!border-t-gray-900 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+          className="appearance-none !border-t-blue-gray-200 text-xl font-normal leading-relaxed antialiased placeholder:text-blue-gray-300 placeholder:opacity-100 hover:shadow-md focus:!border-t-gray-900 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
           labelProps={{
             className: "before:content-none after:content-none",
           }}
           containerProps={{
-            className: "min-w-0",
+            className: "min-w-0 ",
           }}
         />
         <div className="absolute right-1 top-1 flex gap-0.5">
@@ -291,6 +297,7 @@ export default function SuppliesCalculator() {
 
   const [itemCount, setItemCount] = useState<number | null>(1);
   const [itemName, setItemName] = useState<string>("");
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   const [totalPrice, setTotalPrice] = useState<number>(0);
 
@@ -310,6 +317,14 @@ export default function SuppliesCalculator() {
     };
     fetchSuppliesData();
   }, []);
+
+  useEffect(() => {
+    const total = itemsList.reduce(
+      (sum, item) => sum + item.price * item.count,
+      0,
+    );
+    setTotalPrice(total);
+  }, [itemsList]); // Recalculates whenever itemsList changes
 
   function addItem(itemName: string, itemCount: number) {
     if (itemCount < 1) {
@@ -346,13 +361,10 @@ export default function SuppliesCalculator() {
     return item.price * item.count;
   }
 
-  useEffect(() => {
-    const total = itemsList.reduce(
-      (sum, item) => sum + item.price * item.count,
-      0,
-    );
-    setTotalPrice(total);
-  }, [itemsList]); // Recalculates whenever itemsList changes
+  // Filter items based on search term
+  const filteredItems = supplies.filter((item) =>
+    item.name.toLowerCase().includes(searchTerm.toLowerCase()),
+  );
 
   return (
     <>
@@ -386,13 +398,13 @@ export default function SuppliesCalculator() {
                 ))}
               </Select> */}
               {/* @ts-ignore */}
-              <Input
+              {/* <Input
                 id="itemName"
                 type="text"
                 readOnly={true}
                 value={itemName ?? ""}
                 placeholder="selected Item"
-                className="appearance-none !border-t-blue-gray-200 text-right placeholder:text-blue-gray-300 placeholder:opacity-100 hover:shadow-md focus:!border-t-gray-900 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                className="appearance-none !border-t-blue-gray-200 text-right text-xl font-normal leading-relaxed antialiased placeholder:text-blue-gray-300 placeholder:opacity-100 hover:shadow-md focus:!border-t-gray-900 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
@@ -400,7 +412,55 @@ export default function SuppliesCalculator() {
                   className: "min-w-0",
                 }}
                 style={{ direction: "rtl" }}
-              />
+              /> */}
+              {/* Searchable Input */}
+              <Menu open={searchTerm.length >= 0} placement="bottom">
+                <MenuHandler>
+                  {/* @ts-ignore */}
+                  <Input
+                    id="searchInput"
+                    type="text"
+                    value={itemName}
+                    onChange={(e) => {
+                      setSearchTerm(e.target.value);
+                      setItemName(e.target.value);
+                    }}
+                    placeholder="Search and Select"
+                    className="appearance-none !border-t-blue-gray-200 text-xl font-normal leading-relaxed antialiased placeholder:text-blue-gray-300 placeholder:opacity-100 hover:shadow-md focus:!border-t-gray-900 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                    containerProps={{ className: "min-w-0" }}
+                    labelProps={{
+                      className: "before:content-none after:content-none",
+                    }}
+                    style={{ direction: "rtl" }}
+                  />
+                </MenuHandler>
+
+                {/* Dropdown List (Searchable Items) */}
+                {searchTerm && (
+                  // @ts-ignore
+                  <MenuList className="absolute z-50 w-max overflow-auto rounded-md border border-gray-200 bg-white shadow-lg">
+                    {filteredItems.length > 0 ? (
+                      filteredItems.map((item, index) => (
+                        // @ts-ignore
+                        <MenuItem
+                          key={index}
+                          onClick={() => {
+                            setItemName(item.name); // Store selected item
+                          }}
+                          className="cursor-pointer bg-white px-3 py-2 text-right hover:bg-gray-100"
+                        >
+                          {item.name}
+                        </MenuItem>
+                      ))
+                    ) : (
+                      // @ts-ignore
+                      <MenuItem className="bg-white px-3 py-2">
+                        No items found
+                      </MenuItem>
+                    )}
+                  </MenuList>
+                )}
+              </Menu>
             </div>
             <div className="">
               <CounterRender value={itemCount} setValue={setItemCount} />
@@ -411,7 +471,7 @@ export default function SuppliesCalculator() {
                 variant="gradient"
                 color="green"
                 size="md"
-                className="text-nowrap"
+                className="h-full text-nowrap text-white"
                 onClick={() => addItem(itemName as string, itemCount as number)}
               >
                 Add Item
