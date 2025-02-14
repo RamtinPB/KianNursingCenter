@@ -3,13 +3,9 @@ import {
   Card,
   IconButton,
   Input,
-  Menu,
-  MenuHandler,
-  MenuItem,
-  MenuList,
   Typography,
 } from "@material-tailwind/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "../../CustomCSS/SelectOverflow.css";
 
 interface SuppliesProps {
@@ -71,11 +67,7 @@ function RenderSelectTable({
                       className={`border-b border-gray-300 px-4 py-4 md:px-3 md:py-4 ${index == 0 ? "w-8 md:w-12" : ""}`}
                     >
                       {/* @ts-ignore */}
-                      <Typography
-                        variant="lead"
-                        color="blue-gray"
-                        className="font-bold leading-none"
-                      >
+                      <Typography variant="h6" color="blue-gray" className="">
                         {head}
                       </Typography>
                     </th>
@@ -168,25 +160,25 @@ function RenderItemsTable({
                   <tr key={item.name} className="hover:bg-gray-50">
                     <td className={classes}>
                       {/* @ts-ignore */}
-                      <Typography variant="lead" className="text-wrap">
+                      <Typography variant="h5" className="text-wrap">
                         {item.name}
                       </Typography>
                     </td>
                     <td className={classes}>
                       {/* @ts-ignore */}
-                      <Typography variant="lead" className="">
+                      <Typography variant="h5" className="">
                         {`${formatNumberWithCommas(item.price)} Rial`}
                       </Typography>
                     </td>
                     <td className={classes}>
                       {/* @ts-ignore */}
-                      <Typography variant="lead" className="">
+                      <Typography variant="h5" className="">
                         {item.count}
                       </Typography>
                     </td>
                     <td className={classes}>
                       {/* @ts-ignore */}
-                      <Typography variant="lead" className="">
+                      <Typography variant="h5" className="">
                         {`${formatNumberWithCommas(CalculateItemPrice(item))} Rial`}
                       </Typography>
                     </td>
@@ -297,9 +289,14 @@ export default function SuppliesCalculator() {
 
   const [itemCount, setItemCount] = useState<number | null>(1);
   const [itemName, setItemName] = useState<string>("");
-  const [searchTerm, setSearchTerm] = useState<string>("");
+
+  // const [searchTerm, setSearchTerm] = useState<string>("");
+  // const [isOpen, setIsOpen] = useState<boolean>(false); // Controls dropdown visibility
+  // const dropdownRef = useRef<HTMLDivElement | null>(null); // Ref for the dropdown container
 
   const [totalPrice, setTotalPrice] = useState<number>(0);
+
+  const tableContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchSuppliesData = async () => {
@@ -325,6 +322,35 @@ export default function SuppliesCalculator() {
     );
     setTotalPrice(total);
   }, [itemsList]); // Recalculates whenever itemsList changes
+
+  useEffect(() => {
+    if (tableContainerRef.current) {
+      tableContainerRef.current.scrollLeft =
+        tableContainerRef.current.scrollWidth;
+    }
+  }, []);
+
+  // // Detect clicks outside to close dropdown
+  // useEffect(() => {
+  //   function handleClickOutside(event: MouseEvent) {
+  //     if (
+  //       dropdownRef.current &&
+  //       !dropdownRef.current.contains(event.target as Node)
+  //     ) {
+  //       setIsOpen(false); // Close dropdown
+  //     }
+  //   }
+
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, []);
+
+  // // Filter items based on search term
+  // const filteredItems = supplies.filter((item) =>
+  //   item.name.toLowerCase().includes(searchTerm.toLowerCase()),
+  // );
 
   function addItem(itemName: string, itemCount: number) {
     if (itemCount < 1) {
@@ -361,16 +387,15 @@ export default function SuppliesCalculator() {
     return item.price * item.count;
   }
 
-  // Filter items based on search term
-  const filteredItems = supplies.filter((item) =>
-    item.name.toLowerCase().includes(searchTerm.toLowerCase()),
-  );
-
   return (
     <>
       <div className="container mx-auto">
         <div className="flex flex-col gap-9 px-5 md:px-0">
-          <div>
+          <div
+            ref={tableContainerRef}
+            className="table-container w-full overflow-auto"
+            style={{ direction: "rtl" }}
+          >
             <RenderSelectTable
               TableContent={supplies}
               selectItem={setItemName}
@@ -398,7 +423,7 @@ export default function SuppliesCalculator() {
                 ))}
               </Select> */}
               {/* @ts-ignore */}
-              {/* <Input
+              <Input
                 id="itemName"
                 type="text"
                 readOnly={true}
@@ -412,55 +437,60 @@ export default function SuppliesCalculator() {
                   className: "min-w-0",
                 }}
                 style={{ direction: "rtl" }}
-              /> */}
-              {/* Searchable Input */}
-              <Menu open={searchTerm.length >= 0} placement="bottom">
-                <MenuHandler>
-                  {/* @ts-ignore */}
-                  <Input
-                    id="searchInput"
-                    type="text"
-                    value={itemName}
-                    onChange={(e) => {
-                      setSearchTerm(e.target.value);
-                      setItemName(e.target.value);
-                    }}
-                    placeholder="Search and Select"
-                    className="appearance-none !border-t-blue-gray-200 text-xl font-normal leading-relaxed antialiased placeholder:text-blue-gray-300 placeholder:opacity-100 hover:shadow-md focus:!border-t-gray-900 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-                    containerProps={{ className: "min-w-0" }}
-                    labelProps={{
-                      className: "before:content-none after:content-none",
-                    }}
-                    style={{ direction: "rtl" }}
-                  />
-                </MenuHandler>
+              />
+              {/* <div ref={dropdownRef}>
+                <Menu open={searchTerm.length >= 0} placement="bottom">
+                  <MenuHandler>
+                    <Input
+                      id="searchInput"
+                      type="text"
+                      value={searchTerm}
+                      onFocus={() => setIsOpen(true)}
+                      onChange={(e) => {
+                        setSearchTerm(e.target.value);
+                        setIsOpen(true); // Open dropdown when typing
+                      }}
+                      placeholder="Search and Select"
+                      className="appearance-none !border-t-blue-gray-200 text-xl font-normal leading-relaxed antialiased placeholder:text-blue-gray-300 placeholder:opacity-100 hover:shadow-md focus:!border-t-gray-900 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                      containerProps={{ className: "min-w-0" }}
+                      labelProps={{
+                        className: "before:content-none after:content-none",
+                      }}
+                      style={{ direction: "rtl" }}
+                    />
+                  </MenuHandler>
 
-                {/* Dropdown List (Searchable Items) */}
-                {searchTerm && (
-                  // @ts-ignore
-                  <MenuList className="absolute z-50 w-max overflow-auto rounded-md border border-gray-200 bg-white shadow-lg">
-                    {filteredItems.length > 0 ? (
-                      filteredItems.map((item, index) => (
+                  {isOpen && searchTerm && (
+                    // @ts-ignore
+                    <MenuList className="absolute z-50 w-max overflow-auto rounded-md border border-gray-200 bg-white shadow-lg">
+                      {filteredItems.length > 0 ? (
+                        filteredItems.map((item, index) => (
+                          // @ts-ignore
+                          <MenuItem
+                            key={index}
+                            onClick={() => {
+                              setItemName(item.name); // Set selected item
+                              setSearchTerm(item.name); // Update input
+                              setIsOpen(false); // Close dropdown
+                            }}
+                            className="flex cursor-pointer flex-row-reverse justify-between gap-7 bg-white px-3 py-2 text-right hover:bg-gray-100"
+                          >
+                            <Typography variant="lead">{item.name}</Typography>
+                            <Typography variant="lead">
+                              {formatNumberWithCommas(item.price)}
+                            </Typography>
+                          </MenuItem>
+                        ))
+                      ) : (
                         // @ts-ignore
-                        <MenuItem
-                          key={index}
-                          onClick={() => {
-                            setItemName(item.name); // Store selected item
-                          }}
-                          className="cursor-pointer bg-white px-3 py-2 text-right hover:bg-gray-100"
-                        >
-                          {item.name}
+                        <MenuItem className="bg-white px-3 py-2">
+                          No items found
                         </MenuItem>
-                      ))
-                    ) : (
-                      // @ts-ignore
-                      <MenuItem className="bg-white px-3 py-2">
-                        No items found
-                      </MenuItem>
-                    )}
-                  </MenuList>
-                )}
-              </Menu>
+                      )}
+                    </MenuList>
+                  )}
+                </Menu>
+              </div> */}
             </div>
             <div className="">
               <CounterRender value={itemCount} setValue={setItemCount} />
@@ -471,21 +501,27 @@ export default function SuppliesCalculator() {
                 variant="gradient"
                 color="green"
                 size="md"
-                className="h-full text-nowrap text-white"
+                className="h-full !text-nowrap text-white"
                 onClick={() => addItem(itemName as string, itemCount as number)}
               >
                 Add Item
               </Button>
             </div>
           </div>
-          <RenderItemsTable
-            TableContent={itemsList}
-            deleteItem={deleteItem}
-            CalculateItemPrice={CalculateItemPrice}
-          />
+          <div
+            ref={tableContainerRef}
+            className="table-container w-full overflow-auto"
+            style={{ direction: "rtl" }}
+          >
+            <RenderItemsTable
+              TableContent={itemsList}
+              deleteItem={deleteItem}
+              CalculateItemPrice={CalculateItemPrice}
+            />
+          </div>
           {/* @ts-ignore */}
-          <Card className="mb-3 flex h-full w-full flex-row items-center justify-between px-4 py-2 md:px-9 md:py-4">
-            <div className="flex flex-col">
+          <Card className="mb-3 flex h-full w-full flex-row items-center justify-between gap-5 px-4 py-2 md:px-9 md:py-4">
+            <div className="">
               {/* @ts-ignore */}
               <Typography variant="h5" className="text-balance text-left">
                 {`Total Price: ${formatNumberWithCommas(totalPrice)} Rial`}
