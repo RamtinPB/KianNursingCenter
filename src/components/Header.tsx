@@ -211,6 +211,7 @@ export default function Header() {
               <ListItem
                 className="py-2"
                 onClick={() => {
+                  clickMenuBar();
                   navigate("/");
                   window.scrollTo(0, 0);
                 }}
@@ -228,6 +229,7 @@ export default function Header() {
               <ListItem
                 className="py-2"
                 onClick={() => {
+                  clickMenuBar();
                   navigate("/AboutUs");
                   window.scrollTo(0, 0);
                 }}
@@ -245,6 +247,7 @@ export default function Header() {
               <ListItem
                 className="py-2"
                 onClick={() => {
+                  clickMenuBar();
                   navigate("/Services");
                   window.scrollTo(0, 0);
                 }}
@@ -262,6 +265,7 @@ export default function Header() {
               <ListItem
                 className="py-2"
                 onClick={() => {
+                  clickMenuBar();
                   navigate("/ContactUs");
                   window.scrollTo(0, 0);
                 }}
@@ -282,6 +286,7 @@ export default function Header() {
                   ripple={true}
                   className="w-full transition-colors duration-300 focus:bg-green-600"
                   onClick={() => {
+                    clickMenuBar();
                     navigate("/ContactUs");
                     window.scrollTo(0, 0);
                   }}
