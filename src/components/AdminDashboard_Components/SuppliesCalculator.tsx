@@ -96,10 +96,7 @@ function RenderSelectTable({
                     </td>
                     <td className={classes}>
                       {/* @ts-ignore */}
-                      <Typography
-                        variant="h5"
-                        className="text-nowrap md:text-wrap"
-                      >
+                      <Typography variant="h5" className="text-wrap">
                         {item.name}
                       </Typography>
                     </td>
