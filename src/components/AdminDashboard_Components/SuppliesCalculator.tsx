@@ -55,7 +55,7 @@ function RenderSelectTable({
       <Card className="h-full w-full px-4 py-1 md:px-9 md:py-4">
         <div className="max-h-60 overflow-y-auto overscroll-contain">
           <table
-            className="w-full min-w-max table-auto text-right"
+            className="w-full min-w-min table-auto text-right"
             style={{ direction: "rtl" }}
           >
             <thead>
@@ -90,7 +90,7 @@ function RenderSelectTable({
                   >
                     <td className={classes}>
                       {/* @ts-ignore */}
-                      <Typography variant="h5" className="text-wrap">
+                      <Typography variant="h5" className="text-nowrap">
                         {index + 1}
                       </Typography>
                     </td>
@@ -102,7 +102,11 @@ function RenderSelectTable({
                     </td>
                     <td className={classes}>
                       {/* @ts-ignore */}
-                      <Typography variant="h5" className="text-wrap">
+                      <Typography
+                        variant="h5"
+                        className="text-nowrap"
+                        style={{ direction: "ltr" }}
+                      >
                         {`${formatNumberWithCommas(item.price)} Rial`}
                       </Typography>
                     </td>
@@ -128,7 +132,7 @@ function RenderItemsTable({
       <Card className="h-full w-full px-4 py-1 md:px-9 md:py-4">
         <div className="max-h-60 overflow-y-auto">
           <table
-            className="w-full min-w-max table-auto text-right"
+            className="w-full min-w-min table-auto text-right"
             style={{ direction: "rtl" }}
           >
             <thead>
@@ -166,19 +170,27 @@ function RenderItemsTable({
                     </td>
                     <td className={classes}>
                       {/* @ts-ignore */}
-                      <Typography variant="h5" className="">
+                      <Typography
+                        variant="h5"
+                        className="text-nowrap"
+                        style={{ direction: "ltr" }}
+                      >
                         {`${formatNumberWithCommas(item.price)} Rial`}
                       </Typography>
                     </td>
                     <td className={classes}>
                       {/* @ts-ignore */}
-                      <Typography variant="h5" className="">
+                      <Typography variant="h5" className="text-nowrap">
                         {item.count}
                       </Typography>
                     </td>
                     <td className={classes}>
                       {/* @ts-ignore */}
-                      <Typography variant="h5" className="">
+                      <Typography
+                        variant="h5"
+                        className="text-nowrap"
+                        style={{ direction: "ltr" }}
+                      >
                         {`${formatNumberWithCommas(CalculateItemPrice(item))} Rial`}
                       </Typography>
                     </td>

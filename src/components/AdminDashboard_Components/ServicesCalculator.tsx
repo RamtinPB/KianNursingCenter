@@ -14,10 +14,16 @@ interface ServicesDataProps {
   price: number;
 }
 
-interface ServiceList {
+interface ServiceListProps {
   code: number;
   description: string;
   price: number;
+  count: number;
+}
+
+interface CounterRenderProps {
+  value: number | null;
+  setValue: (newValue: number) => void;
 }
 
 interface RenderSelectTableProps {
@@ -27,11 +33,19 @@ interface RenderSelectTableProps {
 }
 
 interface RenderItemsTableProps {
-  TableContent: ServiceList[];
+  TableContent: ServiceListProps[];
   deleteItem: (serviceDescription: string) => void;
+  CalculateItemPrice: (item: ServiceListProps) => number;
 }
 
-const TABLE_HEAD = ["Code", "Service", "Price Per Service", ""];
+const TABLE_HEAD = [
+  "Code",
+  "Service",
+  "Price Per Service",
+  "Count",
+  "Total Per Item",
+  "",
+];
 
 const SELECT_HEAD = ["#", "Code", "Service", "Price"];
 
@@ -52,7 +66,7 @@ function RenderSelectTable({
       <Card className="h-full w-full px-4 py-1 md:px-9 md:py-4">
         <div className="max-h-60 overflow-y-auto overscroll-contain">
           <table
-            className="w-screen table-auto text-right"
+            className="w-full min-w-min table-auto text-right"
             style={{ direction: "rtl" }}
           >
             <thead>
@@ -90,13 +104,13 @@ function RenderSelectTable({
                   >
                     <td className={classes}>
                       {/* @ts-ignore */}
-                      <Typography variant="h5" className="text-wrap">
+                      <Typography variant="h5" className="text-nowrap">
                         {index + 1}
                       </Typography>
                     </td>
                     <td className={classes}>
                       {/* @ts-ignore */}
-                      <Typography variant="h5" className="text-wrap">
+                      <Typography variant="h5" className="text-nowrap">
                         {item.code}
                       </Typography>
                     </td>
@@ -108,7 +122,11 @@ function RenderSelectTable({
                     </td>
                     <td className={classes}>
                       {/* @ts-ignore */}
-                      <Typography variant="h5" className="text-wrap">
+                      <Typography
+                        variant="h5"
+                        className="text-nowrap"
+                        style={{ direction: "ltr" }}
+                      >
                         {`${formatNumberWithCommas(item.price)} Rial`}
                       </Typography>
                     </td>
@@ -123,14 +141,18 @@ function RenderSelectTable({
   );
 }
 
-function RenderItemsTable({ TableContent, deleteItem }: RenderItemsTableProps) {
+function RenderItemsTable({
+  TableContent,
+  deleteItem,
+  CalculateItemPrice,
+}: RenderItemsTableProps) {
   return (
     <>
       {/* @ts-ignore */}
       <Card className="h-full w-full px-4 py-1 md:px-9 md:py-4">
         <div className="max-h-60 overflow-y-auto">
           <table
-            className="w-full min-w-max table-auto text-right"
+            className="w-full min-w-min table-auto text-right"
             style={{ direction: "rtl" }}
           >
             <thead>
@@ -162,7 +184,7 @@ function RenderItemsTable({ TableContent, deleteItem }: RenderItemsTableProps) {
                   <tr key={item.description} className="hover:bg-gray-50">
                     <td className={classes}>
                       {/* @ts-ignore */}
-                      <Typography variant="h5" className="">
+                      <Typography variant="h5" className="text-nowrap">
                         {item.code}
                       </Typography>
                     </td>
@@ -174,8 +196,28 @@ function RenderItemsTable({ TableContent, deleteItem }: RenderItemsTableProps) {
                     </td>
                     <td className={classes}>
                       {/* @ts-ignore */}
-                      <Typography variant="h5" className="">
+                      <Typography
+                        variant="h5"
+                        className="text-nowrap"
+                        style={{ direction: "ltr" }}
+                      >
                         {`${formatNumberWithCommas(item.price)} Rial`}
+                      </Typography>
+                    </td>
+                    <td className={classes}>
+                      {/* @ts-ignore */}
+                      <Typography variant="h5" className="text-nowrap">
+                        {item.count}
+                      </Typography>
+                    </td>
+                    <td className={classes}>
+                      {/* @ts-ignore */}
+                      <Typography
+                        variant="h5"
+                        className="text-nowrap"
+                        style={{ direction: "ltr" }}
+                      >
+                        {`${formatNumberWithCommas(CalculateItemPrice(item))} Rial`}
                       </Typography>
                     </td>
                     <td className={`${classes}`}>
@@ -207,10 +249,83 @@ function RenderItemsTable({ TableContent, deleteItem }: RenderItemsTableProps) {
   );
 }
 
+function CounterRender({ value, setValue }: CounterRenderProps) {
+  function examineValue(value: number | null): number | undefined {
+    if (value != null) {
+      if (value >= 0) {
+        return value;
+      } else {
+        return undefined;
+      }
+    } else {
+      return undefined;
+    }
+  }
+
+  return (
+    <div className="h-full">
+      <div className="relative">
+        {/* @ts-ignore */}
+        <Input
+          id="count"
+          type="number"
+          value={examineValue(value) ?? ""}
+          placeholder="set amount"
+          onChange={(e) => setValue(Number(e.target.value))}
+          className="appearance-none !border-t-blue-gray-200 text-xl font-normal leading-relaxed antialiased placeholder:text-blue-gray-300 placeholder:opacity-100 hover:shadow-md focus:!border-t-gray-900 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+          labelProps={{
+            className: "before:content-none after:content-none",
+          }}
+          containerProps={{
+            className: "min-w-0 ",
+          }}
+        />
+        <div className="absolute right-1 top-1 flex gap-0.5">
+          {/* @ts-ignore */}
+          <IconButton
+            size="sm"
+            variant="text"
+            className="rounded bg-transparent"
+            onClick={() =>
+              setValue((value as number) <= 1 ? 1 : (value as number) - 1)
+            }
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+              fill="green"
+              className="size-5"
+            >
+              <path d="M3.75 7.25a.75.75 0 0 0 0 1.5h8.5a.75.75 0 0 0 0-1.5h-8.5Z" />
+            </svg>
+          </IconButton>
+          {/* @ts-ignore */}
+          <IconButton
+            size="sm"
+            variant="text"
+            className="rounded bg-transparent"
+            onClick={() => setValue((value as number) + 1)}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+              fill="green"
+              className="size-5"
+            >
+              <path d="M8.75 3.75a.75.75 0 0 0-1.5 0v3.5h-3.5a.75.75 0 0 0 0 1.5h3.5v3.5a.75.75 0 0 0 1.5 0v-3.5h3.5a.75.75 0 0 0 0-1.5h-3.5v-3.5Z" />
+            </svg>
+          </IconButton>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function ServicesCalculator() {
   const [servicesData, setServicesData] = useState<ServicesDataProps[]>([]);
-  const [serviceList, setServiceList] = useState<ServiceList[]>([]);
+  const [serviceList, setServiceList] = useState<ServiceListProps[]>([]);
 
+  const [serviceCount, setServiceCount] = useState<number | null>(1);
   const [serviceCode, setServiceCode] = useState<number | null>(0);
   const [serviceDescription, setServiceDescription] = useState<string>("");
 
@@ -273,7 +388,12 @@ export default function ServicesCalculator() {
   //   item.description.toLowerCase().includes(searchTerm.toLowerCase()),
   // );
 
-  function addItem(serviceDescription: string) {
+  function addItem(serviceDescription: string, serviceCount: number) {
+    if (serviceCount < 1) {
+      console.warn(`Count: "${serviceCount}" is not valid.`);
+      return;
+    }
+
     const selectedItem = servicesData.find(
       (item) => item.description === serviceDescription,
     );
@@ -297,6 +417,7 @@ export default function ServicesCalculator() {
         code: serviceCode as number,
         description: serviceDescription,
         price: selectedItem.price,
+        count: serviceCount as number,
       },
     ]);
   }
@@ -305,6 +426,10 @@ export default function ServicesCalculator() {
     setServiceList((prevItems) =>
       prevItems.filter((item) => item.description !== serviceDescription),
     );
+  }
+
+  function CalculateItemPrice(item: ServiceListProps): number {
+    return item.price * item.count;
   }
 
   return (
@@ -414,13 +539,18 @@ export default function ServicesCalculator() {
               </div> */}
             </div>
             <div className="">
+              <CounterRender value={serviceCount} setValue={setServiceCount} />
+            </div>
+            <div className="">
               {/* @ts-ignore */}
               <Button
                 variant="gradient"
                 color="green"
                 size="md"
                 className="h-full !text-nowrap text-white"
-                onClick={() => addItem(serviceDescription as string)}
+                onClick={() =>
+                  addItem(serviceDescription as string, serviceCount as number)
+                }
               >
                 Add Item
               </Button>
@@ -434,6 +564,7 @@ export default function ServicesCalculator() {
             <RenderItemsTable
               TableContent={serviceList}
               deleteItem={deleteItem}
+              CalculateItemPrice={CalculateItemPrice}
             />
           </div>
           {/* @ts-ignore */}
