@@ -116,7 +116,10 @@ function RenderSelectTable({
                     </td>
                     <td className={`${classes} `}>
                       {/* @ts-ignore */}
-                      <Typography variant="h5" className="text-wrap">
+                      <Typography
+                        variant="h5"
+                        className="text-nowrap md:text-wrap"
+                      >
                         {item.description}
                       </Typography>
                     </td>
@@ -190,7 +193,10 @@ function RenderItemsTable({
                     </td>
                     <td className={classes}>
                       {/* @ts-ignore */}
-                      <Typography variant="h5" className="text-wrap">
+                      <Typography
+                        variant="h5"
+                        className="text-nowrap md:text-wrap"
+                      >
                         {item.description}
                       </Typography>
                     </td>
