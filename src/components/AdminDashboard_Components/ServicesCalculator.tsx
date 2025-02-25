@@ -361,7 +361,10 @@ export default function ServicesCalculator() {
   }, []);
 
   useEffect(() => {
-    const total = serviceList.reduce((sum, item) => sum + item.price, 0);
+    const total = serviceList.reduce(
+      (sum, item) => sum + item.price * item.count,
+      0,
+    );
     setTotalPrice(total);
   }, [serviceList]); // Recalculates whenever serviceList changes
 
