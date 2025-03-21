@@ -16,37 +16,42 @@ interface usersProps {
   password: string;
 }
 
-export default function Login() {
+export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const { user, loading, signIn } = useAuth();
+  const { user, loading, signUp } = useAuth();
   const navigate = useNavigate();
 
   // Redirect if already logged in
   useEffect(() => {
     if (user) {
+      console.log(user);
       navigate("/AdminDashboard");
     }
   }, [user, navigate]);
 
-  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (!email || !password) {
+      alert("Please enter both email and password.");
       return;
     }
 
     try {
-      // Call signIn function from the context
-      await signIn(email, password);
+      // Call signUp function from the context
+      const user = await signUp(email, password);
 
-      // Redirect to the dashboard on successful login
-      navigate("/AdminDashboard");
+      // Only navigate if signUp was successful
+      if (user as unknown as boolean) {
+        navigate("/AdminDashboard");
+      }
     } catch (error) {
-      alert("Invalid email or password.");
+      console.error("Signup error:", error);
+      alert("Invalid email or password. Please try again.");
     }
   };
 
@@ -85,7 +90,7 @@ export default function Login() {
 
                 {/* @ts-ignore */}
                 <Typography variant="h4" className="col-span-8 mb-0 text-black">
-                  Login
+                  SignUp
                 </Typography>
               </div>
             </CardHeader>
@@ -95,7 +100,7 @@ export default function Login() {
                 style={{
                   direction: "ltr",
                 }}
-                onSubmit={handleLogin}
+                onSubmit={handleSignUp}
               >
                 {/* <div className="mb-2 flex justify-between p-1">
                   <Typography variant="paragraph" className="text-black">
@@ -209,7 +214,7 @@ export default function Login() {
                 <div className="p-1 text-center">
                   {/* @ts-ignore */}
                   <Button type="submit" size="md" className="rounded-full">
-                    Login
+                    SignUp
                   </Button>
                 </div>
               </form>

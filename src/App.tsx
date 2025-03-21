@@ -7,6 +7,7 @@ import Services from "./pages/Services";
 import ContactUs from "./pages/ContactUs";
 import Login from "./pages/Login";
 import AdminDashboard from "./pages/AdminDashboard";
+import SignUp from "./pages/SignUp";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/ContactUs" element={<ContactUs />} />
           </Route>
           <Route path="/Login" element={<Login />} />
+          <Route path="/SignUp" element={<SignUp />} />
         </Routes>
       </BrowserRouter>
     </>

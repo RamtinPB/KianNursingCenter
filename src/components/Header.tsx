@@ -6,25 +6,13 @@ import {
   List,
   ListItem,
 } from "@material-tailwind/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../ContextProviders/AuthContext";
 
 export default function Header() {
   const [showMenu, setShowMenu] = useState(false);
 
-  const [count, setCount] = useState(0);
-
-  const { loginState } = useAuth();
-
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (count == 5) {
-      loginState ? navigate("/AdminDashboard") : navigate("/Login");
-      setCount(0);
-    }
-  }, [count]);
 
   function clickMenuBar() {
     setShowMenu((prev) => !prev);
@@ -46,7 +34,8 @@ export default function Header() {
               <div
                 className="flex cursor-pointer gap-2"
                 onClick={() => {
-                  setCount((prev) => prev + 1);
+                  navigate("/");
+                  window.scrollTo(0, 0);
                 }}
               >
                 {/* <img src="" alt="KNC Logo" className="h-11 w-11" /> */}
@@ -143,19 +132,32 @@ export default function Header() {
                 </ul>
               </div>
             </div>
-
-            {/* @ts-ignore */}
-            <Button
-              ripple={true}
-              color="black"
-              className="hidden transition-colors duration-300 hover:bg-green-600 hover:shadow-none md:block"
-              onClick={() => {
-                navigate("/ContactUs");
-                window.scrollTo(0, 0);
-              }}
-            >
-              Book an Appointment
-            </Button>
+            <div className="flex flex-row gap-3">
+              {/* @ts-ignore */}
+              <Button
+                ripple={true}
+                color="black"
+                className="hidden transition-colors duration-300 hover:bg-green-600 hover:shadow-none md:block"
+                onClick={() => {
+                  navigate("/Login");
+                  window.scrollTo(0, 0);
+                }}
+              >
+                Login
+              </Button>
+              {/* @ts-ignore */}
+              <Button
+                ripple={true}
+                color="black"
+                className="hidden transition-colors duration-300 hover:bg-green-600 hover:shadow-none md:block"
+                onClick={() => {
+                  navigate("/SignUp");
+                  window.scrollTo(0, 0);
+                }}
+              >
+                SignUp
+              </Button>
+            </div>
 
             {/* @ts-ignore */}
             <IconButton
@@ -282,11 +284,12 @@ export default function Header() {
                   ripple={true}
                   className="w-full transition-colors duration-300 focus:bg-green-600"
                   onClick={() => {
-                    navigate("/ContactUs");
+                    clickMenuBar();
+                    navigate("/Login");
                     window.scrollTo(0, 0);
                   }}
                 >
-                  Book an Appointment
+                  Login
                 </Button>
               </ListItem>
             </List>
