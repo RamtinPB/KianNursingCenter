@@ -45,9 +45,9 @@ export default function AdminDashboard() {
   return (
     <>
       <div className="flex flex-col bg-blue-gray-50">
-        <div className="my-16 flex items-center justify-center">
+        <div className="my-9 flex items-center justify-center md:my-16">
           {/* @ts-ignore */}
-          <ButtonGroup>
+          <ButtonGroup size="md">
             {/* @ts-ignore */}
             <Button onClick={() => handleNavigation("SuppliesCalculator")}>
               Supplies Calculator
@@ -60,7 +60,7 @@ export default function AdminDashboard() {
         </div>
         <>{renderContent()}</>
       </div>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 300">
         <path
           fill="#eceff1"
           fillOpacity="1"

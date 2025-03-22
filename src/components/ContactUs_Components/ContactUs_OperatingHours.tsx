@@ -20,7 +20,7 @@ function RenderCards({ schedule }: RenderCardsProps) {
               {TABLE_HEAD.map((head) => (
                 <th
                   key={head}
-                  className="border-b border-gray-300 pb-4 pt-6 md:pt-10"
+                  className="border-b border-gray-300 px-2 pb-4 pt-6 md:pt-10"
                 >
                   {/* @ts-ignore */}
                   <Typography
@@ -37,7 +37,9 @@ function RenderCards({ schedule }: RenderCardsProps) {
           <tbody>
             {schedule.map((item, index) => {
               const isLast = index === schedule.length - 1;
-              const classes = isLast ? "py-4" : "py-4 border-b border-gray-300";
+              const classes = isLast
+                ? "px-2 py-4"
+                : "px-2 py-4 border-b border-gray-300";
 
               return (
                 <tr key={item.Day} className="hover:bg-gray-50">
