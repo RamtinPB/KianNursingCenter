@@ -14,7 +14,7 @@ export default function AdminDashboard() {
   useEffect(() => {
     if (!user) {
       console.log(user);
-      navigate("/");
+      //navigate("/");
     }
   }, [user]);
 

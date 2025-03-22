@@ -6,7 +6,7 @@ import {
   List,
   ListItem,
 } from "@material-tailwind/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../ContextProviders/AuthContext";
 
@@ -189,7 +189,7 @@ export default function Header() {
                       window.scrollTo(0, 0);
                     }}
                   >
-                    SignUp
+                    Sign Up
                   </Button>
                 </>
               )}
@@ -314,19 +314,65 @@ export default function Header() {
                 </Typography>
               </ListItem>
               {/* @ts-ignore */}
-              <ListItem ripple={false} className="my-2 p-0">
-                {/* @ts-ignore */}
-                <Button
-                  ripple={true}
-                  className="w-full transition-colors duration-300 focus:bg-green-600"
-                  onClick={() => {
-                    clickMenuBar();
-                    navigate("/Login");
-                    window.scrollTo(0, 0);
-                  }}
-                >
-                  Login
-                </Button>
+              <ListItem ripple={false} className="my-2 flex flex-row gap-3 p-0">
+                {user ? (
+                  <>
+                    {/* @ts-ignore */}
+                    <Button
+                      ripple={true}
+                      size="sm"
+                      className="w-full transition-colors duration-300 focus:bg-green-600"
+                      onClick={() => {
+                        navigate("/AdminDashboard");
+                        window.scrollTo(0, 0);
+                      }}
+                    >
+                      Dashboard
+                    </Button>
+                    {/* @ts-ignore */}
+                    <Button
+                      ripple={true}
+                      size="sm"
+                      className="w-full transition-colors duration-300 focus:bg-green-600"
+                      onClick={async () => {
+                        await signOut();
+                        navigate("/");
+                        window.scrollTo(0, 0);
+                      }}
+                    >
+                      Log Out
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    {/* @ts-ignore */}
+                    <Button
+                      ripple={true}
+                      size="sm"
+                      className="w-full transition-colors duration-300 focus:bg-green-600"
+                      onClick={() => {
+                        clickMenuBar();
+                        navigate("/Login");
+                        window.scrollTo(0, 0);
+                      }}
+                    >
+                      Login
+                    </Button>
+                    {/* @ts-ignore */}
+                    <Button
+                      ripple={true}
+                      size="sm"
+                      className="w-full transition-colors duration-300 focus:bg-green-600"
+                      onClick={() => {
+                        clickMenuBar();
+                        navigate("/SignUp");
+                        window.scrollTo(0, 0);
+                      }}
+                    >
+                      Sign Up
+                    </Button>
+                  </>
+                )}
               </ListItem>
             </List>
           </div>
