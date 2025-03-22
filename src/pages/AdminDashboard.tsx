@@ -3,11 +3,20 @@ import { SetStateAction, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import ServicesCalculator from "../components/AdminDashboard_Components/ServicesCalculator";
 import SuppliesCalculator from "../components/AdminDashboard_Components/SuppliesCalculator";
+import { useAuth } from "../ContextProviders/AuthContext";
 
 export default function AdminDashboard() {
   const [activeSection, setActiveSection] = useState("Calculator");
   const location = useLocation();
   const navigate = useNavigate();
+  const { user } = useAuth();
+
+  useEffect(() => {
+    if (!user) {
+      console.log(user);
+      navigate("/");
+    }
+  }, [user]);
 
   // Check if there is a state passed with the section to open
   useEffect(() => {

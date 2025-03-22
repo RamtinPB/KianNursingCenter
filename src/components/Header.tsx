@@ -6,13 +6,16 @@ import {
   List,
   ListItem,
 } from "@material-tailwind/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../ContextProviders/AuthContext";
 
 export default function Header() {
   const [showMenu, setShowMenu] = useState(false);
 
   const navigate = useNavigate();
+
+  const { user, signOut } = useAuth();
 
   function clickMenuBar() {
     setShowMenu((prev) => !prev);
@@ -133,30 +136,63 @@ export default function Header() {
               </div>
             </div>
             <div className="flex flex-row gap-3">
-              {/* @ts-ignore */}
-              <Button
-                ripple={true}
-                color="black"
-                className="hidden transition-colors duration-300 hover:bg-green-600 hover:shadow-none md:block"
-                onClick={() => {
-                  navigate("/Login");
-                  window.scrollTo(0, 0);
-                }}
-              >
-                Login
-              </Button>
-              {/* @ts-ignore */}
-              <Button
-                ripple={true}
-                color="black"
-                className="hidden transition-colors duration-300 hover:bg-green-600 hover:shadow-none md:block"
-                onClick={() => {
-                  navigate("/SignUp");
-                  window.scrollTo(0, 0);
-                }}
-              >
-                SignUp
-              </Button>
+              {user ? (
+                <>
+                  {/* @ts-ignore */}
+                  <Button
+                    ripple={true}
+                    color="black"
+                    className="hidden transition-colors duration-300 hover:bg-green-600 hover:shadow-none md:block"
+                    onClick={() => {
+                      navigate("/AdminDashboard");
+                      window.scrollTo(0, 0);
+                    }}
+                  >
+                    Dashboard
+                  </Button>
+
+                  {/* @ts-ignore */}
+                  <Button
+                    ripple={true}
+                    color="black"
+                    className="hidden transition-colors duration-300 hover:bg-green-600 hover:shadow-none md:block"
+                    onClick={async () => {
+                      await signOut();
+                      navigate("/");
+                      window.scrollTo(0, 0);
+                    }}
+                  >
+                    Log Out
+                  </Button>
+                </>
+              ) : (
+                <>
+                  {/* @ts-ignore */}
+                  <Button
+                    ripple={true}
+                    color="black"
+                    className="hidden transition-colors duration-300 hover:bg-green-600 hover:shadow-none md:block"
+                    onClick={() => {
+                      navigate("/Login");
+                      window.scrollTo(0, 0);
+                    }}
+                  >
+                    Login
+                  </Button>
+                  {/* @ts-ignore */}
+                  <Button
+                    ripple={true}
+                    color="black"
+                    className="hidden transition-colors duration-300 hover:bg-green-600 hover:shadow-none md:block"
+                    onClick={() => {
+                      navigate("/SignUp");
+                      window.scrollTo(0, 0);
+                    }}
+                  >
+                    SignUp
+                  </Button>
+                </>
+              )}
             </div>
 
             {/* @ts-ignore */}

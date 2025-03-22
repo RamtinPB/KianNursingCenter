@@ -43,8 +43,10 @@ export default function Login() {
       // Call signIn function from the context
       await signIn(email, password);
 
-      // Redirect to the dashboard on successful login
-      navigate("/AdminDashboard");
+      // Only navigate if signUp was successful
+      if (user as unknown as boolean) {
+        navigate("/AdminDashboard");
+      }
     } catch (error) {
       alert("Invalid email or password.");
     }
