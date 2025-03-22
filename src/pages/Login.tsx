@@ -11,11 +11,6 @@ import { SetStateAction, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../ContextProviders/AuthContext";
 
-interface usersProps {
-  email: string;
-  password: string;
-}
-
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -118,7 +113,7 @@ export default function Login() {
                   {/* @ts-ignore */}
                   <Input
                     variant="outlined"
-                    type="text"
+                    type="email"
                     color="blue-gray"
                     onChange={(e: {
                       target: { value: SetStateAction<string> };
