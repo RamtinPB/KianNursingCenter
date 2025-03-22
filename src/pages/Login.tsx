@@ -17,7 +17,7 @@ export default function Login() {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const { user, loading, signIn } = useAuth();
+  const { user,  signIn } = useAuth();
   const navigate = useNavigate();
 
   // Redirect if already logged in

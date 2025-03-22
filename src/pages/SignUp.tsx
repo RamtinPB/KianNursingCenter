@@ -17,7 +17,7 @@ export default function SignUp() {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const { user, loading, signUp } = useAuth();
+  const { user, signUp } = useAuth();
   const navigate = useNavigate();
 
   // Redirect if already logged in
