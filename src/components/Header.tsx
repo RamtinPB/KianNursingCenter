@@ -20,6 +20,7 @@ export default function Header() {
   function clickMenuBar() {
     setShowMenu((prev) => !prev);
   }
+  console.log(user);
 
   return (
     <>
