@@ -1,11 +1,4 @@
-import { createClient } from "@supabase/supabase-js";
-
-// Initialize Supabase client
-const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL!, // Use `import.meta.env` for Vite
-  import.meta.env.VITE_SUPABASE_ANON_KEY!,
-  { auth: { persistSession: true } }, // Ensures session persistence
-);
+import { supabase } from "./supabase";
 
 // Sign up a new user
 export const signUpUser = async (email: string, password: string) => {
@@ -26,21 +19,10 @@ export const signUpUser = async (email: string, password: string) => {
     return { success: false, error: "User registration failed" };
   }
 
-  // Insert user details into the "users" table
-  const { error: insertError } = await supabase.from("users").insert([
-    {
-      id: data.user.id, // Match the Supabase Auth user ID
-      email: data.user.email,
-      role: "user", // Default role
-    },
-  ]);
-
-  if (insertError) {
-    console.error("Error inserting user data:", insertError.message);
-    return { success: false, error: insertError.message };
-  }
-
-  return { success: true, user: data.user };
+  return {
+    success: true,
+    user: data.user,
+  };
 };
 
 export const updateUserRole = async (
@@ -102,6 +84,30 @@ export const logoutUser = async () => {
   }
 
   return { success: true };
+};
+
+export const checkEmailConfirmation = async () => {
+  try {
+    // Check if the session exists
+    const { data: session, error: sessionError } =
+      await supabase.auth.getSession();
+
+    if (sessionError || !session) {
+      console.error("No active session found");
+      return false; // No session, no need to check email confirmation
+    }
+
+    // Get the user information
+    const { data, error } = await supabase.auth.getUser();
+
+    if (error) throw error;
+
+    // Return true if email is confirmed, otherwise false
+    return data?.user?.email_confirmed_at !== null;
+  } catch (err) {
+    console.error("Error checking email confirmation:", err);
+    return false;
+  }
 };
 
 // Get the currently logged-in user

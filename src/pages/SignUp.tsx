@@ -6,6 +6,10 @@ import {
   IconButton,
   Input,
   CardHeader,
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
 } from "@material-tailwind/react";
 import { SetStateAction, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -16,20 +20,32 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
 
   const [showPassword, setShowPassword] = useState(false);
+  const [emailNotConfirmed, setEmailNotConfirmed] = useState<Boolean | null>(
+    null,
+  );
 
-  const { user, signUp } = useAuth();
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(!open);
+
+  const { user, emailConfirmation, signUp } = useAuth();
   const navigate = useNavigate();
 
   // Redirect if already logged in
   useEffect(() => {
     if (user) {
       console.log(user);
-      navigate("/AdminDashboard");
+      if (
+        user.user_metadata.email_verified ||
+        user.user_metadata.email_verified === undefined
+      ) {
+        navigate("/");
+      }
     }
   }, [user, navigate]);
 
   const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    handleOpen();
 
     if (!email || !password) {
       alert("Please enter both email and password.");
@@ -41,12 +57,21 @@ export default function SignUp() {
       const user = await signUp(email, password);
 
       // Only navigate if signUp was successful
-      if (user as unknown as boolean) {
+      if (user && user?.user_metadata.email_verified) {
         navigate("/AdminDashboard");
       }
     } catch (error) {
       console.error("Signup error:", error);
       alert("Invalid email or password. Please try again.");
+    }
+  };
+
+  const checkEmailConfirmation = async () => {
+    const result = await emailConfirmation();
+    if (result && user?.user_metadata.email_verified) {
+      navigate("/AdminDashboard");
+    } else {
+      setEmailNotConfirmed(true);
     }
   };
 
@@ -85,7 +110,7 @@ export default function SignUp() {
 
                 {/* @ts-ignore */}
                 <Typography variant="h4" className="col-span-8 mb-0 text-black">
-                  SignUp
+                  Sign Up
                 </Typography>
               </div>
             </CardHeader>
@@ -95,7 +120,9 @@ export default function SignUp() {
                 style={{
                   direction: "ltr",
                 }}
-                onSubmit={handleSignUp}
+                onSubmit={(event) => {
+                  handleSignUp(event);
+                }}
               >
                 {/* <div className="mb-2 flex justify-between p-1">
                   <Typography variant="paragraph" className="text-black">
@@ -209,13 +236,52 @@ export default function SignUp() {
                 <div className="p-1 text-center">
                   {/* @ts-ignore */}
                   <Button type="submit" size="md" className="rounded-full">
-                    SignUp
+                    Sign Up
                   </Button>
                 </div>
               </form>
             </CardBody>
           </div>
         </Card>
+        {/* @ts-ignore */}
+        <Dialog
+          open={!user?.user_metadata.email_verified && open}
+          handler={handleOpen}
+        >
+          {/* @ts-ignore */}
+          <DialogHeader>Verify Your Email</DialogHeader>
+          {/* @ts-ignore */}
+          <DialogBody>
+            {/* @ts-ignore */}
+            <Typography>
+              We sent a confirmation email. Please verify to proceed.
+            </Typography>
+            {/* @ts-ignore */}
+            <Typography
+              variant="paragraph"
+              color={emailNotConfirmed ? "red" : undefined}
+            >
+              {emailNotConfirmed ? "Email has not been verified." : ""}
+            </Typography>
+          </DialogBody>
+          {/* @ts-ignore */}
+          <DialogFooter className="flex flex-row justify-center gap-5 align-middle">
+            {/* @ts-ignore */}
+            <Button variant="gradient" color="red" onClick={handleOpen}>
+              Cancel
+            </Button>
+            {/* @ts-ignore */}
+            <Button
+              variant="gradient"
+              color="green"
+              onClick={() => {
+                checkEmailConfirmation();
+              }}
+            >
+              Confirm
+            </Button>
+          </DialogFooter>
+        </Dialog>
       </div>
     </>
   );

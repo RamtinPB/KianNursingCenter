@@ -5,15 +5,16 @@ import {
   ReactNode,
   useContext,
 } from "react";
-import { signInUser, logoutUser } from "../utils/auth";
+import { signInUser, logoutUser, checkEmailConfirmation } from "../utils/auth";
 import { User } from "@supabase/supabase-js";
 import { supabase } from "../utils/supabase"; // Ensure you import the Supabase client
 
 interface AuthContextType {
   user: User | null;
   loading: boolean;
-  signIn: (email: string, password: string) => Promise<void>;
-  signUp: (email: string, password: string) => Promise<void>;
+  emailConfirmation: () => Promise<boolean>;
+  signIn: (email: string, password: string) => Promise<User | null | undefined>;
+  signUp: (email: string, password: string) => Promise<User | null | undefined>;
   signOut: () => Promise<void>;
 }
 
@@ -26,32 +27,46 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch the current user when the app loads
     const fetchUser = async () => {
+      // Fetch the session and user when the component first mounts
       const {
         data: { session },
       } = await supabase.auth.getSession();
-      setUser(session?.user ?? null);
-      setLoading(false);
+
+      // If there's an active session and user data, set the user
+      if (session?.user) {
+        setUser(session.user); // Set the user directly from the session
+      } else {
+        setUser(null); // No session, set user to null
+      }
+
+      setLoading(false); // Done loading after checking session
     };
 
+    // Call the function to fetch the user initially
     fetchUser();
 
-    // Listen for authentication state changes
+    // Listen for auth state changes (login, logout, etc.)
     const { data: authListener } = supabase.auth.onAuthStateChange(
       (_event, session) => {
-        setUser(session?.user ?? null);
+        if (session?.user) {
+          setUser(session.user); // Update user on session change (login)
+        } else {
+          setUser(null); // Reset user on logout or session expiration
+        }
       },
     );
 
+    // Cleanup the auth listener when the component unmounts
     return () => {
       authListener?.subscription.unsubscribe();
     };
-  }, []);
+  }, []); // Empty dependency array ensures this runs only once on mount
 
   const signIn = async (email: string, password: string) => {
     const response = await signInUser(email, password);
     if (response.success) setUser(response.user ?? null);
+    return response.user;
   };
 
   // SignUp function
@@ -66,6 +81,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       // Optionally, handle the user after successful sign up (e.g., redirect to login page)
       setUser(data?.user ?? null);
+      return data.user;
     } catch (error) {
       console.error("Sign up error:", error);
       // Optionally, handle error (e.g., show a notification)
@@ -77,8 +93,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setUser(null);
   };
 
+  const emailConfirmation = async () => {
+    const result = await checkEmailConfirmation();
+    return result;
+  };
+
   return (
-    <AuthContext.Provider value={{ user, loading, signIn, signUp, signOut }}>
+    <AuthContext.Provider
+      value={{ user, loading, emailConfirmation, signIn, signUp, signOut }}
+    >
       {children}
     </AuthContext.Provider>
   );
