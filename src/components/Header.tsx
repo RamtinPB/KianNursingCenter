@@ -6,16 +6,23 @@ import {
   List,
   ListItem,
 } from "@material-tailwind/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../ContextProviders/AuthContext";
 
 export default function Header() {
   const [showMenu, setShowMenu] = useState(false);
+  const [userAuthorized, setUserAuthorized] = useState(false);
 
   const navigate = useNavigate();
 
   const { user, signOut } = useAuth();
+
+  useEffect(() => {
+    if (user && user.user_metadata.email_verified) {
+      setUserAuthorized(true);
+    }
+  }, [user]);
 
   function clickMenuBar() {
     setShowMenu((prev) => !prev);
@@ -137,7 +144,7 @@ export default function Header() {
               </div>
             </div>
             <div className="flex flex-row gap-3">
-              {user ? (
+              {userAuthorized ? (
                 <>
                   {/* @ts-ignore */}
                   <Button
@@ -320,7 +327,7 @@ export default function Header() {
               </ListItem>
               {/* @ts-ignore */}
               <ListItem ripple={false} className="my-2 flex flex-row gap-3 p-0">
-                {user ? (
+                {userAuthorized ? (
                   <>
                     {/* @ts-ignore */}
                     <Button

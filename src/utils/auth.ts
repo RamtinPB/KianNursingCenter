@@ -88,22 +88,16 @@ export const logoutUser = async () => {
 
 export const checkEmailConfirmation = async () => {
   try {
-    // Check if the session exists
-    const { data: session, error: sessionError } =
-      await supabase.auth.getSession();
+    // Get the user information (this will only succeed if a session exists)
+    const { data: userData, error: userError } = await supabase.auth.getUser();
 
-    if (sessionError || !session) {
-      console.error("No active session found");
-      return false; // No session, no need to check email confirmation
+    if (userError) {
+      console.error("Error fetching user:", userError);
+      return false; // User not found, or session missing
     }
 
-    // Get the user information
-    const { data, error } = await supabase.auth.getUser();
-
-    if (error) throw error;
-
-    // Return true if email is confirmed, otherwise false
-    return data?.user?.email_confirmed_at !== null;
+    // Return true if email is confirmed
+    return userData?.user?.email_confirmed_at !== null;
   } catch (err) {
     console.error("Error checking email confirmation:", err);
     return false;
