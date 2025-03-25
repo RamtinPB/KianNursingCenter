@@ -16,11 +16,13 @@ export default function Header() {
 
   const navigate = useNavigate();
 
-  const { user, signOut } = useAuth();
+  const { user, loading, signOut } = useAuth();
 
   useEffect(() => {
     if (user && user.user_metadata.email_verified) {
       setUserAuthorized(true);
+    } else {
+      setUserAuthorized(false);
     }
   }, [user]);
 
@@ -143,66 +145,90 @@ export default function Header() {
                 </ul>
               </div>
             </div>
-            <div className="flex flex-row gap-3">
-              {userAuthorized ? (
+            <div
+              className={`flex flex-row gap-3 ${loading && "animate-pulse"}`}
+            >
+              {loading ? (
                 <>
                   {/* @ts-ignore */}
                   <Button
-                    ripple={true}
-                    color="black"
-                    className="hidden transition-colors duration-300 hover:bg-green-600 hover:shadow-none md:block"
-                    onClick={() => {
-                      navigate("/AdminDashboard");
-                      window.scrollTo(0, 0);
-                    }}
+                    disabled
+                    tabIndex={-1}
+                    className="bg-gray-300 shadow-none hover:shadow-none"
                   >
                     Dashboard
                   </Button>
-
                   {/* @ts-ignore */}
                   <Button
-                    ripple={true}
-                    color="black"
-                    className="hidden transition-colors duration-300 hover:bg-green-600 hover:shadow-none md:block"
-                    onClick={async () => {
-                      await signOut();
-                      navigate("/");
-                      window.scrollTo(0, 0);
-                    }}
+                    disabled
+                    tabIndex={-1}
+                    className="bg-gray-300 shadow-none hover:shadow-none"
                   >
                     Log Out
                   </Button>
                 </>
               ) : (
                 <>
-                  {/* @ts-ignore */}
-                  <Button
-                    ripple={true}
-                    color="black"
-                    className="hidden transition-colors duration-300 hover:bg-green-600 hover:shadow-none md:block"
-                    onClick={() => {
-                      navigate("/Login");
-                      window.scrollTo(0, 0);
-                    }}
-                  >
-                    Login
-                  </Button>
-                  {/* @ts-ignore */}
-                  <Button
-                    ripple={true}
-                    color="black"
-                    className="hidden transition-colors duration-300 hover:bg-green-600 hover:shadow-none md:block"
-                    onClick={() => {
-                      navigate("/SignUp");
-                      window.scrollTo(0, 0);
-                    }}
-                  >
-                    Sign Up
-                  </Button>
+                  {userAuthorized ? (
+                    <>
+                      {/* @ts-ignore */}
+                      <Button
+                        ripple={true}
+                        color="black"
+                        className="hidden transition-colors duration-300 hover:bg-green-600 hover:shadow-none md:block"
+                        onClick={() => {
+                          navigate("/AdminDashboard");
+                          window.scrollTo(0, 0);
+                        }}
+                      >
+                        Dashboard
+                      </Button>
+
+                      {/* @ts-ignore */}
+                      <Button
+                        ripple={true}
+                        color="black"
+                        className="hidden transition-colors duration-300 hover:bg-green-600 hover:shadow-none md:block"
+                        onClick={async () => {
+                          await signOut();
+                          navigate("/");
+                          window.scrollTo(0, 0);
+                        }}
+                      >
+                        Log Out
+                      </Button>
+                    </>
+                  ) : (
+                    <>
+                      {/* @ts-ignore */}
+                      <Button
+                        ripple={true}
+                        color="black"
+                        className="hidden transition-colors duration-300 hover:bg-green-600 hover:shadow-none md:block"
+                        onClick={() => {
+                          navigate("/Login");
+                          window.scrollTo(0, 0);
+                        }}
+                      >
+                        Login
+                      </Button>
+                      {/* @ts-ignore */}
+                      <Button
+                        ripple={true}
+                        color="black"
+                        className="hidden transition-colors duration-300 hover:bg-green-600 hover:shadow-none md:block"
+                        onClick={() => {
+                          navigate("/SignUp");
+                          window.scrollTo(0, 0);
+                        }}
+                      >
+                        Sign Up
+                      </Button>
+                    </>
+                  )}
                 </>
               )}
             </div>
-
             {/* @ts-ignore */}
             <IconButton
               className="rounded-full bg-inherit shadow-none md:hidden"
@@ -326,63 +352,89 @@ export default function Header() {
                 </Typography>
               </ListItem>
               {/* @ts-ignore */}
-              <ListItem ripple={false} className="my-2 flex flex-row gap-3 p-0">
-                {userAuthorized ? (
+              <ListItem
+                ripple={false}
+                className={`my-2 flex flex-row gap-3 p-0 ${loading && "animate-pulse"}`}
+              >
+                {loading ? (
                   <>
                     {/* @ts-ignore */}
                     <Button
-                      ripple={true}
-                      size="sm"
-                      className="w-full transition-colors duration-300 focus:bg-green-600"
-                      onClick={() => {
-                        navigate("/AdminDashboard");
-                        window.scrollTo(0, 0);
-                      }}
+                      disabled
+                      tabIndex={-1}
+                      className="bg-gray-300 shadow-none hover:shadow-none"
                     >
                       Dashboard
                     </Button>
                     {/* @ts-ignore */}
                     <Button
-                      ripple={true}
-                      size="sm"
-                      className="w-full transition-colors duration-300 focus:bg-green-600"
-                      onClick={async () => {
-                        await signOut();
-                        navigate("/");
-                        window.scrollTo(0, 0);
-                      }}
+                      disabled
+                      tabIndex={-1}
+                      className="bg-gray-300 shadow-none hover:shadow-none"
                     >
                       Log Out
                     </Button>
                   </>
                 ) : (
                   <>
-                    {/* @ts-ignore */}
-                    <Button
-                      ripple={true}
-                      size="sm"
-                      className="w-full transition-colors duration-300 focus:bg-green-600"
-                      onClick={() => {
-                        clickMenuBar();
-                        navigate("/Login");
-                        window.scrollTo(0, 0);
-                      }}
-                    >
-                      Login
-                    </Button>
-                    {/* @ts-ignore */}
-                    <Button
-                      ripple={true}
-                      size="sm"
-                      className="w-full transition-colors duration-300 focus:bg-green-600"
-                      onClick={() => {
-                        clickMenuBar();
-                        navigate("/SignUp");
-                        window.scrollTo(0, 0);
-                      }}
-                    >
-                      Sign Up
-                    </Button>
+                    {userAuthorized ? (
+                      <>
+                        {/* @ts-ignore */}
+                        <Button
+                          ripple={true}
+                          size="sm"
+                          className="w-full transition-colors duration-300 focus:bg-green-600"
+                          onClick={() => {
+                            navigate("/AdminDashboard");
+                            window.scrollTo(0, 0);
+                          }}
+                        >
+                          Dashboard
+                        </Button>
+                        {/* @ts-ignore */}
+                        <Button
+                          ripple={true}
+                          size="sm"
+                          className="w-full transition-colors duration-300 focus:bg-green-600"
+                          onClick={async () => {
+                            await signOut();
+                            navigate("/");
+                            window.scrollTo(0, 0);
+                          }}
+                        >
+                          Log Out
+                        </Button>
+                      </>
+                    ) : (
+                      <>
+                        {/* @ts-ignore */}
+                        <Button
+                          ripple={true}
+                          size="sm"
+                          className="w-full transition-colors duration-300 focus:bg-green-600"
+                          onClick={() => {
+                            clickMenuBar();
+                            navigate("/Login");
+                            window.scrollTo(0, 0);
+                          }}
+                        >
+                          Login
+                        </Button>
+                        {/* @ts-ignore */}
+                        <Button
+                          ripple={true}
+                          size="sm"
+                          className="w-full transition-colors duration-300 focus:bg-green-600"
+                          onClick={() => {
+                            clickMenuBar();
+                            navigate("/SignUp");
+                            window.scrollTo(0, 0);
+                          }}
+                        >
+                          Sign Up
+                        </Button>
+                      </>
+                    )}
                   </>
                 )}
               </ListItem>

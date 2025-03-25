@@ -33,7 +33,6 @@ export default function SignUp() {
   // Redirect if already logged in
   useEffect(() => {
     if (user) {
-      console.log(user);
       if (
         user.user_metadata.email_verified ||
         user.user_metadata.email_verified === undefined

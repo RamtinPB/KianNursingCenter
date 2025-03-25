@@ -17,13 +17,18 @@ export default function Login() {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const { user,  signIn } = useAuth();
+  const { user, signIn } = useAuth();
   const navigate = useNavigate();
 
   // Redirect if already logged in
   useEffect(() => {
     if (user) {
-      navigate("/AdminDashboard");
+      if (
+        user.user_metadata.email_verified ||
+        user.user_metadata.email_verified === undefined
+      ) {
+        navigate("/");
+      }
     }
   }, [user, navigate]);
 
