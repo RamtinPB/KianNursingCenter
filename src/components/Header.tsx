@@ -16,7 +16,7 @@ export default function Header() {
 
   const navigate = useNavigate();
 
-  const { user, loading, signOut } = useAuth();
+  const { user, customUserData, loading, signOut } = useAuth();
 
   useEffect(() => {
     if (user && user.user_metadata.email_verified) {
@@ -30,6 +30,7 @@ export default function Header() {
     setShowMenu((prev) => !prev);
   }
   console.log(user);
+  console.log(customUserData);
 
   return (
     <>

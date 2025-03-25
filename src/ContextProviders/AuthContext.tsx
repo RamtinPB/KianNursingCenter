@@ -5,12 +5,18 @@ import {
   ReactNode,
   useContext,
 } from "react";
-import { signInUser, logoutUser, checkEmailConfirmation } from "../utils/auth";
+import {
+  signInUser,
+  logoutUser,
+  checkEmailConfirmation,
+  getCustomUserData,
+} from "../utils/auth";
 import { User } from "@supabase/supabase-js";
 import { supabase } from "../utils/supabase"; // Ensure you import the Supabase client
 
 interface AuthContextType {
   user: User | null;
+  customUserData: User | null;
   loading: boolean;
   emailConfirmation: () => Promise<boolean>;
   signIn: (email: string, password: string) => Promise<User | null | undefined>;
@@ -24,8 +30,10 @@ export const AuthContext = createContext<AuthContextType | undefined>(
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [customUserData, setCustomUserData] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
+  // fetch the auth.user's data
   useEffect(() => {
     const fetchUser = async () => {
       // Fetch the session and user when the component first mounts
@@ -63,6 +71,56 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     };
   }, []); // Empty dependency array ensures this runs only once on mount
 
+  ///////////////////////////////////////////////////////////////////////////////
+
+  // fetch public.user's data
+  useEffect(() => {
+    const fetchCustomUserData = async () => {
+      // Fetch the session
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      // Check if session exists and user is logged in
+      if (session?.user) {
+        // Optionally fetch additional custom user data from your table
+        const userData = await getCustomUserData();
+        setCustomUserData(userData); // Store the custom user data
+      } else {
+        setCustomUserData(null); // No session, reset custom user data
+      }
+
+      // Done loading after checking session
+      setLoading(false);
+    };
+
+    // Call the function to fetch the custom user data initially
+    fetchCustomUserData();
+
+    // Listen for auth state changes (login, logout, etc.)
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        if (session?.user) {
+          // Optionally fetch custom user data from your table on session change
+          const fetchCustomUserDataOnChange = async () => {
+            const userData = await getCustomUserData();
+            setCustomUserData(userData); // Update custom user data on login
+          };
+
+          fetchCustomUserDataOnChange();
+        } else {
+          setCustomUserData(null); // Reset custom user data on logout
+        }
+      },
+    );
+
+    // Cleanup the auth listener when the component unmounts
+    return () => {
+      authListener?.subscription.unsubscribe();
+    };
+  }, []); // Empty dependency array ensures this runs only once on mount
+
+  // SignIn function
   const signIn = async (email: string, password: string) => {
     const response = await signInUser(email, password);
     if (response.success) setUser(response.user ?? null);
@@ -88,11 +146,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  // SignOut function
   const signOut = async () => {
     await logoutUser();
     setUser(null);
   };
 
+  // Email Confirmation function
   const emailConfirmation = async () => {
     const result = await checkEmailConfirmation();
     return result;
@@ -100,7 +160,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, loading, emailConfirmation, signIn, signUp, signOut }}
+      value={{
+        user,
+        customUserData,
+        loading,
+        emailConfirmation,
+        signIn,
+        signUp,
+        signOut,
+      }}
     >
       {children}
     </AuthContext.Provider>
