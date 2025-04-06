@@ -1,11 +1,13 @@
 import { serve } from "https://cdn.jsdelivr.net/gh/denoland/deno_std/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js";
+import nodemailer from "https://cdn.skypack.dev/nodemailer";
 
 // Environment variables
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
 const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 const ALERT_EMAIL = Deno.env.get("ALERT_EMAIL")!;
-const SENDGRID_API_KEY = Deno.env.get("SENDGRID_API_KEY")!;
+const BREVO_SMTP_USER = Deno.env.get("BREVO_SMTP_USER")!;
+const BREVO_SMTP_PASSWORD = Deno.env.get("BREVO_SMTP_PASSWORD")!;
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
@@ -49,26 +51,27 @@ serve(async (req) => {
 
 // Function to send email alert when the database usage is too high
 async function sendEmailAlert(used: number, available: number) {
-  const emailData = {
-    personalizations: [{ to: [{ email: ALERT_EMAIL }] }], // Replace with your email
-    from: { email: "your-email@example.com" }, // Replace with your email
-    subject: "🚨 Supabase Database Space Warning",
-    content: [
-      {
-        type: "text/plain",
-        value: `Warning: Database usage is ${used.toFixed(2)} MB. Only ${available.toFixed(2)} MB left.`,
-      },
-    ],
-  };
-
-  const response = await fetch("https://api.sendgrid.com/v3/mail/send", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${SENDGRID_API_KEY}`,
-      "Content-Type": "application/json",
+  const transporter = nodemailer.createTransport({
+    service: "SMTP",
+    host: "smtp-relay.brevo.com",
+    port: 587,
+    auth: {
+      user: BREVO_SMTP_USER,
+      pass: BREVO_SMTP_PASSWORD,
     },
-    body: JSON.stringify(emailData),
   });
 
-  console.log("Email sent:", response.ok);
+  const mailOptions = {
+    from: BREVO_SMTP_USER, // Sender address
+    to: ALERT_EMAIL, // Receiver email
+    subject: "🚨 Supabase Database Space Warning",
+    text: `Warning: Database usage is ${used.toFixed(2)} MB. Only ${available.toFixed(2)} MB left.`,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log("Email sent successfully");
+  } catch (error) {
+    console.error("Error sending email:", error);
+  }
 }
