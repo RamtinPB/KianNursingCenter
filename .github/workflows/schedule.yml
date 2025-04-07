@@ -2,13 +2,17 @@ name: Daily Supabase Function Trigger
 
 on:
   schedule:
-    - cron: '30 5 * * *' # Every day at 9:00 AM Iran time (5:30 UTC)
-  workflow_dispatch: # Optional manual trigger
+    - cron: '30 5 * * *'  # Every day at 9:00 AM Iran time (5:30 UTC)
+  workflow_dispatch:  # Optional manual trigger
 
 jobs:
   trigger-function:
     runs-on: ubuntu-latest
     steps:
+      - name: Set up environment
+        run: echo "SUPABASE_SERVICE_ROLE_KEY=${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" >> $GITHUB_ENV
+
       - name: Call Supabase Edge Function
         run: |
-          curl -X POST https://rwqgcyjyqhwxuqrxmfpt.functions.supabase.co/check-db-size
+          curl -X POST https://rwqgcyjyqhwxuqrxmfpt.functions.supabase.co/check-db-size \
+            -H "Authorization: Bearer $SUPABASE_SERVICE_ROLE_KEY"
