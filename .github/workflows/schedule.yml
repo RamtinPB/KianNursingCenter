@@ -1,0 +1,14 @@
+name: Daily Supabase Function Trigger
+
+on:
+  schedule:
+    - cron: "0 8 * * *" # Runs every day at 08:00 UTC
+  workflow_dispatch: # (optional) lets you manually trigger it
+
+jobs:
+  trigger-function:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Supabase Edge Function
+        run: |
+          curl -X POST https://rwqgcyjyqhwxuqrxmfpt.supabase.co/functions/v1/check-db-size.functions.supabase.co/check-db-size
