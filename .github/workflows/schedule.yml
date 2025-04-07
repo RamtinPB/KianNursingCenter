@@ -11,4 +11,5 @@ jobs:
     steps:
       - name: Call Supabase Edge Function
         run: |
-          curl -X POST https://rwqgcyjyqhwxuqrxmfpt.supabase.co/functions/v1/check-db-size.functions.supabase.co/check-db-size
+          curl -X POST curl -X POST https://rwqgcyjyqhwxuqrxmfpt.functions.supabase.co/check-db-size
+
